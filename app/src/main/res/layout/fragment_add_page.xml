@@ -23,15 +23,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginHorizontal="20dp"
+        android:textSize="15dp"
         android:layout_below="@+id/addPageTitle"
         android:id="@+id/restaurantName"
-        android:hint="Restaurant Name"
-        android:autofillHints="Saizeriya" />
+        android:hint="Restaurant Name" />
 
     <EditText
         android:id="@+id/menuName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="15dp"
         android:layout_marginHorizontal="20dp"
         android:layout_below="@+id/restaurantName"
         android:hint="Menu Name" />
@@ -41,7 +42,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
+        android:textSize="15dp"
         android:layout_below="@+id/menuName"
+        android:inputType="phone"
         android:hint="Price" />
 
 
@@ -91,7 +94,6 @@
         android:layout_marginTop="18dp"
         android:text="Rate your food"/>
 
-
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
@@ -103,11 +105,23 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:layout_marginHorizontal="20dp"
         android:id="@+id/imageAdd"
         android:src="@drawable/gallery_icon"
         android:layout_below="@+id/ratingBar"/>
+
+    <EditText
+        android:id="@+id/foodMemo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:hint="Tell me more about the food and restaurant :)"
+        android:textSize="15dp"
+        android:layout_below="@+id/imageAdd"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -116,9 +130,6 @@
         android:text="Upload"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/imageAdd"/>
-
-
-
+        android:layout_below="@+id/foodMemo"/>
 
 </RelativeLayout>
