@@ -31,14 +31,14 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="150dp"
-                    android:src="@drawable/logo"
-                    tools:ignore="MissingConstraints" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/logo"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginHorizontal="150dp"-->
+<!--                    android:src="@drawable/logo"-->
+<!--                    tools:ignore="MissingConstraints" />-->
 
 
             </LinearLayout>

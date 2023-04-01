@@ -1,32 +1,98 @@
 package com.example.bitebook_new;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class AddPage extends Fragment {
 
-    public AddPage(){
-        // require a empty public constructor
-    }
+    // TODO 1 use the elements created to get the user inputs and save it to variables
+    // TODO 1.1 initialize elements
+    EditText restaurantName;
+    EditText menuName;
+    EditText price;
+    RatingBar rate;
+    ImageView pictures;
+    Button addPictures;
+    EditText foodMemo;
+    Button upload;
 
+    // all inputs will be saved into this HashMap
+    public HashMap<String,String> inputs = new HashMap<>();
 
+    // TODO 2 try to dropdown -> if cannot then change to spinner -> after making the dropdown working, check if the layout looks okay
+    // TODO 3 try to get image from the gallery with the limit of images
+    // TODO 4 if can, then when the upload button is clicked, try to save the information to a list/ dictionary/ hash
+    // TODO <ADDITIONAL> change the app icon image
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_add_page, container, false);
+
+        // TODO 1.2 connect elements' ids with the elements in fragment
+        restaurantName = view.findViewById(R.id.restaurantName);
+        menuName = view.findViewById(R.id.menuName);
+        price = view.findViewById(R.id.price);
+        rate = view.findViewById(R.id.ratingBar);
+        pictures = view.findViewById(R.id.imageAdd);
+        addPictures = view.findViewById(R.id.addPicture);
+        foodMemo = view.findViewById(R.id.foodMemo);
+        upload = view.findViewById(R.id.upload);
 
 
 
+        // TODO 1.3 when the upload button is clicked the string inputs in each element will be saved in to specific var
 
+        upload.setOnClickListener(new View.OnClickListener() {
 
+            // TODO add onClick for adding pictures -> show the pictures added
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_page, container, false);
+            @Override
+            public void onClick(View view) {
+                // get String input from the element
+                String resName = restaurantName.getText().toString();
+                String menName = menuName.getText().toString();
+                String pri = price.getText().toString();
+                float rat = rate.getRating();
+                String ratString = String.valueOf(rat);
+                String fooMemo = foodMemo.getText().toString();
 
+                // check any of necessary inputs are empty/ missing
+                if (resName.isEmpty() ||
+                menName.isEmpty() ||
+                pri.isEmpty() ||
+                rat == 0.0){
+                    // if the resName is empty then show a message
+                    Toast.makeText(getActivity(), "Please fill in the blanks", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    inputs.put("Restaurant Name", resName);
+                    inputs.put("Menu Name", menName);
+                    inputs.put("Price", pri);
+                    inputs.put("Rate", ratString);
+                    inputs.put("Food Memo", fooMemo);
+                    // TODO add pictures to the list too
+                    System.out.println(inputs);
+                }
+            }
+        });
 
+        return view;
     }
 }
