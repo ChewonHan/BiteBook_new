@@ -34,7 +34,8 @@ public class AddPage extends Fragment {
     Button upload;
 
     // all inputs will be saved into this HashMap
-    public HashMap<String,String> inputs = new HashMap<>();
+    public HashMap<String,List<String>> inputs = new HashMap<>();
+
 
     // TODO 2 try to dropdown -> if cannot then change to spinner -> after making the dropdown working, check if the layout looks okay
     // TODO 3 try to get image from the gallery with the limit of images
@@ -44,6 +45,23 @@ public class AddPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_page, container, false);
+
+        // initialize each key for further inputs from users
+        List<String> resVal = new ArrayList<>();
+        inputs.put("Restaurant Name", resVal);
+
+        List<String> menVal = new ArrayList<>();
+        inputs.put("Menu Name", menVal);
+
+        List<String> priVal = new ArrayList<>();
+        inputs.put("Price", priVal);
+
+        List<String> ratVal = new ArrayList<>();
+        inputs.put("Rate", ratVal);
+
+        List<String> menMeVal = new ArrayList<>();
+        inputs.put("Food Memo", menMeVal);
+
 
         // TODO 1.2 connect elements' ids with the elements in fragment
         restaurantName = view.findViewById(R.id.restaurantName);
@@ -82,11 +100,17 @@ public class AddPage extends Fragment {
                     Toast.makeText(getActivity(), "Please fill in the blanks", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    inputs.put("Restaurant Name", resName);
-                    inputs.put("Menu Name", menName);
-                    inputs.put("Price", pri);
-                    inputs.put("Rate", ratString);
-                    inputs.put("Food Memo", fooMemo);
+                    inputs.get("Restaurant Name").add(resName);
+                    inputs.get("Menu Name").add(menName);
+                    inputs.get("Price").add(pri);
+                    inputs.get("Rate").add(ratString);
+                    if (!fooMemo.isEmpty()){
+                        inputs.get("Food Memo").add(fooMemo);
+                    }
+                    else{
+                        inputs.get("Food Memo").add(null);
+                    }
+
                     // TODO add pictures to the list too
                     System.out.println(inputs);
                 }
