@@ -37,7 +37,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        String title = data.get(position).name;
+        String title = data.get(position).resName;
         holder.title.setText(title);
 
 

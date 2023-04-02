@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class AddPage extends Fragment {
 
     // use the elements created to get the user inputs and save it to variables
     // initialize elements
+    ArrayList<Entry> entries;
     EditText restaurantName;
     EditText menuName;
     EditText price;
@@ -35,15 +37,15 @@ public class AddPage extends Fragment {
     EditText foodMemo;
     Button upload;
     Spinner areaSpinner;
+    String area;
     Spinner cuisineSpinner;
+    String cuisine;
 
     // all inputs will be saved into this HashMap
     public HashMap<String,List<String>> inputs = new HashMap<>();
 
 
-    // TODO 2 try to dropdown -> if cannot then change to spinner -> after making the dropdown working, check if the layout looks okay
     // TODO 3 try to get image from the gallery with the limit of images
-    // TODO 4 if can, then when the upload button is clicked, try to save the information to a list/ dictionary/ hash
     // TODO <ADDITIONAL> change the app icon image
 
     @Override
@@ -51,21 +53,7 @@ public class AddPage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_page, container, false);
 
         // initialize each key for further inputs from users
-        List<String> resVal = new ArrayList<>();
-        inputs.put("Restaurant Name", resVal);
-
-        List<String> menVal = new ArrayList<>();
-        inputs.put("Menu Name", menVal);
-
-        List<String> priVal = new ArrayList<>();
-        inputs.put("Price", priVal);
-
-        List<String> ratVal = new ArrayList<>();
-        inputs.put("Rate", ratVal);
-
-        List<String> menMeVal = new ArrayList<>();
-        inputs.put("Food Memo", menMeVal);
-
+        entries = new ArrayList<>();
 
         // elements' ids with the elements in fragment
         restaurantName = view.findViewById(R.id.restaurantName);
@@ -90,8 +78,38 @@ public class AddPage extends Fragment {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cuisineSpinner.setAdapter(adapter2);
 
+
+
+        // save user inputs from spinners
+        areaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cuisine = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                cuisine = null;
+            }
+        });
+
+        cuisineSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                area = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                area = null;
+            }
+        });
+
+
+
         // when the upload button is clicked the string inputs in each element will be saved in to specific var
         upload.setOnClickListener(new View.OnClickListener() {
+
 
             // TODO 3.1 add onClick for adding pictures -> show the pictures added
 
@@ -102,31 +120,29 @@ public class AddPage extends Fragment {
                 String menName = menuName.getText().toString();
                 String pri = price.getText().toString();
                 float rat = rate.getRating();
-                String ratString = String.valueOf(rat);
                 String fooMemo = foodMemo.getText().toString();
 
                 // check any of necessary inputs are empty/ missing
                 if (resName.isEmpty() ||
                 menName.isEmpty() ||
                 pri.isEmpty() ||
-                rat == 0.0){
+                rat == 0.0 ||
+                area == null ||
+                cuisine == null){
                     // if the resName is empty then show a message
                     Toast.makeText(getActivity(), "Please fill in the blanks", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    inputs.get("Restaurant Name").add(resName);
-                    inputs.get("Menu Name").add(menName);
-                    inputs.get("Price").add(pri);
-                    inputs.get("Rate").add(ratString);
-                    if (!fooMemo.isEmpty()){
-                        inputs.get("Food Memo").add(fooMemo);
-                    }
-                    else{
-                        inputs.get("Food Memo").add(null);
+                    // if food memo is empty then save null instead
+                    if (fooMemo.isEmpty()){
+                        fooMemo = null;
                     }
 
-                    // TODO 3.2 add pictures to the list too
-                    System.out.println(inputs);
+                    // save the user inputs as an object called Entry
+                    Entry food = new Entry(resName, menName, pri, area, cuisine, rat, fooMemo);
+                    entries.add(food);
+
+                    System.out.println(food);
                 }
             }
         });

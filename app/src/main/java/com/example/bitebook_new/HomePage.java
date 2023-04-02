@@ -39,6 +39,7 @@ public class HomePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
+        // TODO question: what's the purpose of items arrayList
         items = new ArrayList<>();
         items.add("First item");
         items.add("se item");
@@ -67,9 +68,9 @@ public class HomePage extends Fragment {
 
         entries = new ArrayList<>();
 
-        Entry item1 = new Entry("McDonalds", "Central", 3, "Best food ever", "Western");
-        Entry item2 = new Entry("Spize", "East", 3, "Great burgers", "Mix");
-        Entry item3 = new Entry("Ya Kun", "Central", 5, "Love da toast", "Bfast");
+        Entry item1 = new Entry("McDonalds", "BigMac","3", "Central", "Western",3, "Best food ever");
+        Entry item2 = new Entry("Spize","menu" ,"2", "East", "Mix", 3, "Great burgers");
+        Entry item3 = new Entry("Ya Kun", "kaya toast", "4", "Central", "Bfast",5, "Love da toast");
 
         entries.add(item1);
         entries.add(item2);
