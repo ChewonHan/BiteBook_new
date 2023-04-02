@@ -9,6 +9,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -128,12 +135,48 @@ public class AddPage extends Fragment {
         });
 
 
-
         // when the upload button is clicked the string inputs in each element will be saved in to specific var
         upload.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                Log.i("alert", "upload clicked");
+
+//                // get current User
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                // The user's ID, unique to the Firebase project. Do NOT use this value to
+//                // authenticate with your backend server, if you have one. Use
+//                // FirebaseUser.getIdToken() instead.
+//                if (user != null) {
+//                    String uid = user.getUid();
+//                    FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
+//                    DatabaseReference myRef = database.getReference(uid);
+//                    myRef.setValue("Hello, World!");
+//                    Log.i("User", uid);
+//                }
+//                else {
+//                    Log.i("Error", "user not found");
+//                }
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    for (UserInfo profile : user.getProviderData()) {
+                        // Id of the provider (ex: google.com)
+                        String providerId = profile.getProviderId();
+
+                        // UID specific to the provider
+                        String uid = profile.getUid();
+
+                        // Name, email address, and profile photo Url
+                        String name = profile.getDisplayName();
+                        String email = profile.getEmail();
+                        Uri photoUrl = profile.getPhotoUrl();
+                        System.out.println(uid);
+                    }
+                } else {
+                    System.out.println("no user found");
+                }
+
                 // get String input from the element
                 String resName = restaurantName.getText().toString();
                 String menName = menuName.getText().toString();
@@ -143,22 +186,21 @@ public class AddPage extends Fragment {
 
                 // check any of necessary inputs are empty/ missing
                 if (resName.isEmpty() ||
-                menName.isEmpty() ||
-                pri.isEmpty() ||
-                rat == 0.0 ||
-                area == null ||
-                cuisine == null){
+                        menName.isEmpty() ||
+                        pri.isEmpty() ||
+                        rat == 0.0 ||
+                        area == null ||
+                        cuisine == null) {
                     // if the resName is empty then show a message
                     Toast.makeText(getActivity(), "Please fill in the blanks", Toast.LENGTH_LONG).show();
-                }
-                else{
+                } else {
                     // if food memo is empty then save null instead
-                    if (fooMemo.isEmpty()){
+                    if (fooMemo.isEmpty()) {
                         fooMemo = null;
                     }
 
                     // save the user inputs as an object called Entry
-                    Entry food = new Entry(resName, menName, pri, area, cuisine, rat, fooMemo );
+                    Entry food = new Entry(resName, menName, pri, area, cuisine, rat, fooMemo);
                     entries.add(food);
 
                     System.out.println(food);
