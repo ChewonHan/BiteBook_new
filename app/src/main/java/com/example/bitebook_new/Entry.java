@@ -1,5 +1,7 @@
 package com.example.bitebook_new;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.NonNull;
 
 public class Entry {
@@ -10,6 +12,7 @@ public class Entry {
     float rating;
     String review;
     String cuisine;
+    static Bitmap foodImage;
 
     public Entry(String resName, String menName, String price, String area, String cuisine, float rating, String review) {
         this.resName = resName;
@@ -21,6 +24,10 @@ public class Entry {
         this.cuisine = cuisine;
     }
 
+    public static void setFoodImage(Bitmap  image){
+        foodImage = image;
+    }
+
     public Entry getEntry(){
         return this;
     }
@@ -29,6 +36,7 @@ public class Entry {
     @Override
     public String toString() {
         return ("Restaurant Name: " + this.resName + " / Menu Name: " + this.menName + " / Price: " + this.price +
-                " / Area: " + this.area + " / Cuisine Type: " + this.cuisine + " / Rating: " + this.rating + " / Review: "+ this.review);
+                " / Area: " + this.area + " / Cuisine Type: " + this.cuisine + " / Rating: " + this.rating +
+                " / Review: "+ this.review + " / Image: " + this.foodImage);
     }
 }

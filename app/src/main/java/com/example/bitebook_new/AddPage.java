@@ -1,8 +1,14 @@
 package com.example.bitebook_new;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +20,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,14 +51,13 @@ public class AddPage extends Fragment {
     String area;
     Spinner cuisineSpinner;
     String cuisine;
+    Bitmap bitmap;
+    TextView addPicDes;
 
-    // all inputs will be saved into this HashMap
-    public HashMap<String,List<String>> inputs = new HashMap<>();
 
-
-    // TODO 3 try to get image from the gallery with the limit of images
     // TODO <ADDITIONAL> change the app icon image
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_page, container, false);
@@ -66,6 +76,7 @@ public class AddPage extends Fragment {
         upload = view.findViewById(R.id.upload);
         areaSpinner = view.findViewById(R.id.areaSpinner);
         cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
+        addPicDes = view.findViewById(R.id.addPicDes);
 
         // set up the spinners
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
@@ -78,6 +89,17 @@ public class AddPage extends Fragment {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cuisineSpinner.setAdapter(adapter2);
 
+        addPictures.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+
+                startActivityForResult(intent, 1);
+                addPicDes.setText("");
+            }
+        });
 
 
         // save user inputs from spinners
@@ -110,9 +132,6 @@ public class AddPage extends Fragment {
         // when the upload button is clicked the string inputs in each element will be saved in to specific var
         upload.setOnClickListener(new View.OnClickListener() {
 
-
-            // TODO 3.1 add onClick for adding pictures -> show the pictures added
-
             @Override
             public void onClick(View view) {
                 // get String input from the element
@@ -139,7 +158,7 @@ public class AddPage extends Fragment {
                     }
 
                     // save the user inputs as an object called Entry
-                    Entry food = new Entry(resName, menName, pri, area, cuisine, rat, fooMemo);
+                    Entry food = new Entry(resName, menName, pri, area, cuisine, rat, fooMemo );
                     entries.add(food);
 
                     System.out.println(food);
@@ -149,4 +168,26 @@ public class AddPage extends Fragment {
 
         return view;
     }
+
+    // This method is called when the user selects an image from their gallery
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == 1) {
+            // Get the Uri of the selected image
+            Uri selectedImage = data.getData();
+            try {
+                // Use the ContentResolver to get a Bitmap from the Uri
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                // Set the Bitmap to the ImageView
+                pictures.setImageBitmap(bitmap);
+                // Save the Bitmap to the MyObject instance
+                Entry.setFoodImage(bitmap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
