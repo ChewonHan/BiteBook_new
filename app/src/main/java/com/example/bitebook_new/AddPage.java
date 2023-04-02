@@ -22,8 +22,8 @@ import java.util.List;
 
 public class AddPage extends Fragment {
 
-    // TODO 1 use the elements created to get the user inputs and save it to variables
-    // TODO 1.1 initialize elements
+    // use the elements created to get the user inputs and save it to variables
+    // initialize elements
     EditText restaurantName;
     EditText menuName;
     EditText price;
@@ -63,7 +63,7 @@ public class AddPage extends Fragment {
         inputs.put("Food Memo", menMeVal);
 
 
-        // TODO 1.2 connect elements' ids with the elements in fragment
+        // elements' ids with the elements in fragment
         restaurantName = view.findViewById(R.id.restaurantName);
         menuName = view.findViewById(R.id.menuName);
         price = view.findViewById(R.id.price);
@@ -75,11 +75,11 @@ public class AddPage extends Fragment {
 
 
 
-        // TODO 1.3 when the upload button is clicked the string inputs in each element will be saved in to specific var
+        // when the upload button is clicked the string inputs in each element will be saved in to specific var
 
         upload.setOnClickListener(new View.OnClickListener() {
 
-            // TODO add onClick for adding pictures -> show the pictures added
+            // TODO 3.1 add onClick for adding pictures -> show the pictures added
 
             @Override
             public void onClick(View view) {
@@ -111,7 +111,7 @@ public class AddPage extends Fragment {
                         inputs.get("Food Memo").add(null);
                     }
 
-                    // TODO add pictures to the list too
+                    // TODO 3.2 add pictures to the list too
                     System.out.println(inputs);
                 }
             }

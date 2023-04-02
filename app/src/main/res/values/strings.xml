@@ -3,6 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="areaSpinner_hint">Location : Area</string>
+
+
     <string-array name="area">
         <item>East</item>
         <item>Central</item>
