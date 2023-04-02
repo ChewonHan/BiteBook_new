@@ -55,47 +55,27 @@
         android:inputType="phone"
         android:hint="Price" />
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
+    <Spinner
+        android:id="@+id/areaSpinner"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/price"
-        android:id="@+id/area"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/areaDropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:textSize="13dp"
-            android:hint="Location : Area"
-            android:inputType="none"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@+id/area"
-        android:id="@+id/cuisine"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-        <AutoCompleteTextView
-            android:id="@+id/cuisineDropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:textSize="13dp"
-            android:hint="Cuisine Type"
-            android:inputType="none"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+    <Spinner
+        android:id="@+id/cuisineSpinner"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="215dp"
+        android:layout_below="@+id/price"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cuisine"
+        android:layout_below="@+id/cuisineSpinner"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="18dp"
         android:text="Rate your food"/>
@@ -105,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/cuisine"
+        android:layout_below="@+id/cuisineSpinner"
         android:layout_marginLeft="120dp"
         tools:ignore="NotSibling" />
 

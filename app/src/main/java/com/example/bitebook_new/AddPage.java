@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -32,6 +34,8 @@ public class AddPage extends Fragment {
     Button addPictures;
     EditText foodMemo;
     Button upload;
+    Spinner areaSpinner;
+    Spinner cuisineSpinner;
 
     // all inputs will be saved into this HashMap
     public HashMap<String,List<String>> inputs = new HashMap<>();
@@ -72,11 +76,21 @@ public class AddPage extends Fragment {
         addPictures = view.findViewById(R.id.addPicture);
         foodMemo = view.findViewById(R.id.foodMemo);
         upload = view.findViewById(R.id.upload);
+        areaSpinner = view.findViewById(R.id.areaSpinner);
+        cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
 
+        // set up the spinners
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
+                getContext(), R.array.areaSpinner, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        areaSpinner.setAdapter(adapter1);
 
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
+                getContext(), R.array.cuisineSpinner, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cuisineSpinner.setAdapter(adapter2);
 
         // when the upload button is clicked the string inputs in each element will be saved in to specific var
-
         upload.setOnClickListener(new View.OnClickListener() {
 
             // TODO 3.1 add onClick for adding pictures -> show the pictures added

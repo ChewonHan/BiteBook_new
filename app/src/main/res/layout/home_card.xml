@@ -115,6 +115,7 @@
                 android:layout_marginLeft="330dp"/>
 
             <TextView
+                android:id="@+id/foodDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
