@@ -8,26 +8,12 @@
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
-    <TextView
-            android:id="@+id/homePageTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="24dp"
-            android:textSize="24dp"
-            android:textColor="@color/bacon"
-            android:text="What menu I'm looking for"
-            android:textStyle="bold"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="5dp" />
-
     <Spinner
         android:id="@+id/areaSpinner"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/homePageTitle"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="70dp"
         android:textColor="@color/bacon"/>
 
     <Spinner
@@ -35,9 +21,8 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
-        android:layout_below="@+id/homePageTitle"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="70dp"
         android:textColor="@color/bacon"/>
 
     <Spinner
@@ -45,9 +30,8 @@
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="280dp"
-        android:layout_below="@+id/homePageTitle"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="70dp"
         android:textColor="@color/bacon"/>
 
     <androidx.recyclerview.widget.RecyclerView
