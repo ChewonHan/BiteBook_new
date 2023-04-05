@@ -58,7 +58,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.foodName);
-            description = itemView.findViewById(R.id.foodDescription);
+            description = itemView.findViewById(R.id.date);
 
         }
     }
