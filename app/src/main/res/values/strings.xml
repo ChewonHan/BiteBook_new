@@ -18,23 +18,23 @@
     </string-array>
 
     <string-array name="cuisineSpinner">
-    <item>Cuisine</item>
-    <item>Singaporean</item>
-    <item>Chinese</item>
-    <item>Japanese</item>
-    <item>Korean</item>
-    <item>Western</item>
-    <item>Indian</item>
-    <item>Thai</item>
-    <item>Swedish</item>
-    <item>Italian</item>
-    <item>Indonesian</item>
-    <item>Turkish</item>
-    <item>Brunch</item>
-    <item>Burger</item>
-    <item>Swiss</item>
-    <item>German</item>
-</string-array>
+        <item>Cuisine</item>
+        <item>Singaporean</item>
+        <item>Chinese</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Western</item>
+        <item>Indian</item>
+        <item>Thai</item>
+        <item>Swedish</item>
+        <item>Italian</item>
+        <item>Indonesian</item>
+        <item>Turkish</item>
+        <item>Brunch</item>
+        <item>Burger</item>
+        <item>Swiss</item>
+        <item>German</item>
+    </string-array>
 
     <string-array name="priceSpinner">
         <item>Cheap</item>

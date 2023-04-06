@@ -8,12 +8,7 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/profile"
-            android:icon="@drawable/profile_icon"
-            android:title="Profile"/>
-
-        <item
-            android:id="@+id/Logout"
+            android:id="@+id/logout"
             android:icon="@drawable/logout_icon"
             android:title="Logout"/>
     </group>

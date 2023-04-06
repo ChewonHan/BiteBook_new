@@ -12,17 +12,19 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
     DrawerLayout drawerLayout;
-
+    NavigationView navigationView;
 
 
     @Override
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
         drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.drawerMenu);
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         findViewById(R.id.profileButton).setOnClickListener(new View.OnClickListener() {
 
@@ -42,16 +47,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         });
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
 
     }
 
+
+    // from here, the code below is for the bottom navigation bar
     HomePage homePage = new HomePage();
     AddPage addPage = new AddPage();
     DecidePage decidePage = new DecidePage();
+    AboutUsPage aboutUsPage = new AboutUsPage();
 
+
+    
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -67,6 +76,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.decide:
                 getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, decidePage).commit();
                 return true;
+
+            case R.id.aboutUs:
+                getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, aboutUsPage).commit();
+
+            /** when the logout button is clicked: go to log in page or what
+            case R.id.logout:
+                getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, ).commit(); **/
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;

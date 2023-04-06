@@ -78,18 +78,8 @@ public class HomePage extends Fragment {
 
 
 
-//        ImageView imageView = (ImageView) view.findViewById(R.id.my_image);
         homeRecycler = (RecyclerView) view.findViewById(R.id.homeRecycler);
 
-//        Button myButton = (Button) view.findViewById(R.id.button);
-//
-//        myButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // your code here
-//                Log.i("asdf", "asdfasf");
-//            }
-//        });
 
         Log.i("asdf","ASDFASDFASDFASFD");
 
