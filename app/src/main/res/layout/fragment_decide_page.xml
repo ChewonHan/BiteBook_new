@@ -43,26 +43,25 @@
         android:layout_marginBottom="10dp"
         android:layout_below="@+id/priceSpinner"/>
 
+    <Button
+        android:id="@+id/generateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_centerHorizontal="true"
+        android:text="Decide"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/decideRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/line"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/generateButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <Button
-        android:id="@+id/generateButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/decideRecycler"
-        android:layout_centerHorizontal="true"
-        android:text="Decide"/>
-
 
 
 </RelativeLayout>
