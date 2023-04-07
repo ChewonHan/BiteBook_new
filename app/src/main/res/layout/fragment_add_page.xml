@@ -11,32 +11,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="30dp"
+        android:layout_marginVertical="80dp"
         android:layout_marginHorizontal="10dp"
         android:background="@drawable/element_border">
-
-
-    <TextView
-        android:id="@+id/addPageTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:textSize="24dp"
-        android:textColor="@color/bacon"
-        android:text="Add a New Restaurant"
-        android:textStyle="bold"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="5dp"
-        android:background="@drawable/element_border"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:layout_marginHorizontal="20dp"
         android:textSize="15dp"
-        android:layout_below="@+id/addPageTitle"
         android:backgroundTint="@color/bacon"
         android:id="@+id/restaurantName"
         android:hint="Restaurant Name" />
@@ -49,7 +33,7 @@
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/bacon"
         android:layout_below="@+id/restaurantName"
-        android:hint="Menu Name" />
+        android:hint="Food Name" />
 
     <EditText
         android:id="@+id/price"
@@ -143,8 +127,8 @@
         android:id="@+id/upload"
         android:text="Upload"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_below="@+id/foodMemo"/>
 
     </RelativeLayout>

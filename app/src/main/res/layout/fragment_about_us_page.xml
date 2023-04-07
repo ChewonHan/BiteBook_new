@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutUsPage">
+
+    <TextView
+        android:id="@+id/aboutUsTitle"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="30dp"
+        android:textSize="30dp"
+        android:text="Team Bite" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/bacon"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="10dp"
+        android:layout_below="@id/aboutUsTitle"/>
+
+    <TextView
+        android:id="@+id/aboutUsDescrption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_marginHorizontal="40dp"
+        android:text="Our team is formed ~~~"/>
+
+    <ImageView
+        android:id="@+id/groupPic"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/aboutUsDescrption"
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/macs" />
+
+    <TextView
+        android:id="@+id/members"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/groupPic"
+        android:layout_marginHorizontal="40dp"
+        android:textSize="10dp"
+        android:text="(Left to Right) Chewon Han (1006217) ~~"/>
+
+</RelativeLayout>
