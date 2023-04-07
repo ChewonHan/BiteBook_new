@@ -22,64 +22,69 @@
             android:layout_height="match_parent"
             android:background="@drawable/element_border">
 
-            <TextView
-                android:id="@+id/foodName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/stars"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="12dp"
-                android:text="Food Name"
-                android:textColor="@color/bacon"
-                android:textSize="15dp"
-                android:textStyle="bold" />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/rateStar5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_marginLeft="360dp"
-                android:src="@drawable/rate_star_icon" />
+                <TextView
+                    android:id="@+id/foodName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="1"
+                    android:text="Food Name"
+                    android:textColor="@color/bacon"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/rateStar4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_marginLeft="335dp"
-                android:src="@drawable/rate_star_icon" />
+                <ImageView
+                    android:id="@+id/rateStar5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:src="@drawable/rate_star_icon" />
 
-            <ImageView
-                android:id="@+id/rateStar3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_marginLeft="310dp"
-                android:src="@drawable/rate_star_icon" />
+                <ImageView
+                    android:id="@+id/rateStar4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:src="@drawable/rate_star_icon" />
 
-            <ImageView
-                android:id="@+id/rateStar2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_marginLeft="285dp"
-                android:src="@drawable/rate_star_icon" />
+                <ImageView
+                    android:id="@+id/rateStar3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:src="@drawable/rate_star_icon" />
 
-            <ImageView
-                android:id="@+id/rateStar1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_marginLeft="260dp"
-                android:src="@drawable/rate_star_icon" />
+                <ImageView
+                    android:id="@+id/rateStar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:src="@drawable/rate_star_icon" />
+
+                <ImageView
+                    android:id="@+id/rateStar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/rate_star_icon" />
+            </LinearLayout>
 
             <View
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/foodName"
+                android:layout_below="@+id/stars"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/bacon" />
 
             <ImageView
@@ -95,35 +100,49 @@
                 android:id="@+id/line2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/foodPic"
+                android:layout_below="@+id/foodPic"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/bacon" />
+
+            <LinearLayout
+                android:id="@+id/belowElements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line2">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:hint="DD / MM / YYYY"
+                    android:textColor="@color/darker_red"
+                    android:textSize="12dp" />
 
             <ImageView
                 android:id="@+id/favIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/line2"
+                android:layout_weight="0.5"
                 android:layout_marginVertical="5dp"
-                android:layout_marginLeft="360dp"
                 android:src="@drawable/fav_icon" />
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/moreIcon"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/line2"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="80dp"
-                android:layout_marginBottom="5dp"
-                android:hint="DD / MM / YYYY"
-                android:textColor="@color/darker_red"
-                android:textSize="12dp" />
+                android:layout_weight="0.5"
+                android:layout_marginRight="10dp"
+                android:layout_marginVertical="5dp"
+                android:src="@drawable/more_icon" />
+
+            </LinearLayout>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

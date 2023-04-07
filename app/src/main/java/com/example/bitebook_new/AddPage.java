@@ -115,6 +115,10 @@ public class AddPage extends Fragment {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
 
+                // set the height of the picture
+                int sizeInPixels = getResources().getDimensionPixelSize(R.dimen.picture_height);
+                pictures.getLayoutParams().height = sizeInPixels;
+
                 startActivityForResult(intent, 1);
                 addPicDes.setText("");
             }
