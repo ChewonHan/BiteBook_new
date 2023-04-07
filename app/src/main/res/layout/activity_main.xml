@@ -24,7 +24,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/profileButton"
-            android:src="@drawable/profile_icon"
+            android:src="@drawable/slide_menu_icon"
             android:layout_margin="15dp"
             tools:ignore="MissingConstraints" />
 

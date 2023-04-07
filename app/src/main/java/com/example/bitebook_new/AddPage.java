@@ -72,7 +72,6 @@ public class AddPage extends Fragment {
     Bitmap bitmap;
     TextView addPicDes;
     String image_url = null;
-    String uri = null;
 
 
     // TODO <ADDITIONAL> change the app icon image
@@ -153,7 +152,6 @@ public class AddPage extends Fragment {
 
             @Override
             public void onClick(View view) {
-                String uid = null;
 
                 // get String input from the element
                 String resName = restaurantName.getText().toString();
@@ -181,6 +179,20 @@ public class AddPage extends Fragment {
 
                     Entry entry = new Entry(resName, menName, pri, area, rat, fooMemo, cuisine, image_url);
                     FirebaseHelper.createEntry(getContext(), entry, bitmap);
+
+                    // After uploading the food, show the message through the toast
+                    Toast.makeText(getActivity(), "YUMMY ! Successfully recorded your food", Toast.LENGTH_LONG).show();
+
+                    // After uploading the food, make all the fill-in blanks as empty
+                    restaurantName.setText("");
+                    menuName.setText("");
+                    price.setText("");
+                    rate.setRating(0);
+                    foodMemo.setText("");
+                    pictures.setImageDrawable(null);
+                    addPicDes.setText("");
+                    areaSpinner.setSelection(0);
+                    cuisineSpinner.setSelection(0);
                 }
             }
         });
