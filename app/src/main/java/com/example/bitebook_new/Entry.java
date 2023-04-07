@@ -16,12 +16,13 @@ public class Entry {
     private float rating;
     private String review;
     private String cuisine;
+    private String image;
 
     public Entry() {
     }
 
 
-    public Entry(String resName, String menName, Integer price, String area, float rating, String review, String cuisine) {
+    public Entry(String resName, String menName, Integer price, String area, float rating, String review, String cuisine, String image) {
         this.resName = resName;
         this.menName = menName;
         this.price = price;
@@ -29,6 +30,7 @@ public class Entry {
         this.rating = rating;
         this.review = review;
         this.cuisine = cuisine;
+        this.image = image;
     }
 
     public Integer getPrice() {
@@ -59,6 +61,9 @@ public class Entry {
         return resName;
     }
 
+    public String getImage() {
+        return image;
+    }
 
     @NonNull
     @Override

@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -31,12 +32,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,6 +71,8 @@ public class AddPage extends Fragment {
     String cuisine;
     Bitmap bitmap;
     TextView addPicDes;
+    String image_url = null;
+    String uri = null;
 
 
     // TODO <ADDITIONAL> change the app icon image
@@ -145,47 +154,6 @@ public class AddPage extends Fragment {
             @Override
             public void onClick(View view) {
                 String uid = null;
-//                // get current User
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                // The user's ID, unique to the Firebase project. Do NOT use this value to
-//                // authenticate with your backend server, if you have one. Use
-//                // FirebaseUser.getIdToken() instead.
-//                if (user != null) {
-//                    String uid = user.getUid();
-//                    FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
-//                    DatabaseReference myRef = database.getReference(uid);
-//                    myRef.setValue("Hello, World!");
-//                    Log.i("User", uid);
-//                }
-//                else {
-//                    Log.i("Error", "user not found");
-//                }
-
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                GoogleSignInAccount gAccount = GoogleSignIn.getLastSignedInAccount(getContext());
-//
-//                if (gAccount != null){
-//                    uid = gAccount.getId();
-//                }
-//                else if (user != null) {
-//                    for (UserInfo profile : user.getProviderData()) {
-//                        // Id of the provider (ex: google.com)
-//                        String providerId = profile.getProviderId();
-//
-//                        // UID specific to the provider
-//                        uid = profile.getUid();
-//                    }
-//                } else {
-//                    System.out.println("no user found");
-//                }
-//
-//                if (uid != null) {
-//                    FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
-//                    DatabaseReference myRef = database.getReference(uid + "/entries");
-//                    DatabaseReference newRef = myRef.push();
-//                    newRef.setValue("entrey 1");
-////                    Log.i("User", uid);
-//                }
 
                 // get String input from the element
                 String resName = restaurantName.getText().toString();
@@ -210,12 +178,9 @@ public class AddPage extends Fragment {
                     }
 
                     // save the user inputs as an object called Entry
-//                    Entry food = new Entry(resName, menName, pri, area, cuisine, rat, fooMemo);
-//                    entries.add(food);
-////                    FirebaseHelper.createEntry(getContext(), food);
-//                    System.out.println(food);
-                    Entry entry = new Entry(resName, menName, pri, area, rat, fooMemo, cuisine);
-                    FirebaseHelper.createEntry(getContext(), entry);
+
+                    Entry entry = new Entry(resName, menName, pri, area, rat, fooMemo, cuisine, image_url);
+                    FirebaseHelper.createEntry(getContext(), entry, bitmap);
                 }
             }
         });
@@ -230,13 +195,55 @@ public class AddPage extends Fragment {
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
             // Get the Uri of the selected image
             Uri selectedImage = data.getData();
+
             try {
+                image_url = FirebaseHelper.generateRandomString();
                 // Use the ContentResolver to get a Bitmap from the Uri
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                 // Set the Bitmap to the ImageView
                 pictures.setImageBitmap(bitmap);
                 // Save the Bitmap to the MyObject instance
 //                Entry.setFoodImage(bitmap);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] pictureData = baos.toByteArray();
+
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                // Create a storage reference from our app
+                StorageReference storageRef = storage.getReference();
+                // Create a child reference
+                // imagesRef now points to "images"
+                StorageReference imagesRef = storageRef.child(image_url);
+
+                // Child references can also take paths
+                // spaceRef now points to "images/space.jpg
+                // imagesRef still points to "images"
+                UploadTask uploadTask = imagesRef.putBytes(pictureData);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                        // ...
+                        imagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                image_url = uri.toString();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
+                    }
+                });
+
+
 
             } catch (IOException e) {
                 e.printStackTrace();

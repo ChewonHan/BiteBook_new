@@ -57,7 +57,7 @@ public class DecidePage extends Fragment {
 
         entries = new ArrayList<>();
 
-        Entry item1 = new Entry("Rsname", "filet", 12, "east", 2, "This is amazing", "Western");
+        Entry item1 = new Entry("Rsname", "filet", 12, "east", 2, "This is amazing", "Western", "url");
 
         entries.add(item1);
 
