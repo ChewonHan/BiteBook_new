@@ -50,22 +50,16 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         String title = entry.getResName();
         holder.title.setText(title);
 
-//        try {
-//            URL url = new URL(entry.getImage());
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setDoInput(true);
-//            connection.connect();
-//            InputStream input = connection.getInputStream();
-//            Bitmap bitmap = BitmapFactory.decodeStream(input);
-//            holder.image.setImageBitmap(bitmap);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        Picasso
-                .get()
-                .load(entry.getImage())
-                .into(holder.image);
-
+        if (entry.getImage() == null){
+            holder.image.setVisibility(View.GONE);
+            holder.line2.setVisibility(View.GONE);
+        }
+        else{
+            Picasso
+                    .get()
+                    .load(entry.getImage())
+                    .into(holder.image);
+        }
 
     }
 
@@ -78,12 +72,14 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
         TextView title, description;
         ImageView image;
+        View line2;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.foodName);
             description = itemView.findViewById(R.id.date);
             image = itemView.findViewById(R.id.foodPic);
+            line2 = itemView.findViewById(R.id.line2);
 
         }
     }

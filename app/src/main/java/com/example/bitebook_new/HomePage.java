@@ -48,9 +48,6 @@ public class HomePage extends Fragment {
         Context context = container.getContext();
         homeRecycler = (RecyclerView) view.findViewById(R.id.homeRecycler);
 
-
-
-
         areaSpinner = view.findViewById(R.id.areaSpinner);
         cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
         priceSpinner = view.findViewById(R.id.priceSpinner);
