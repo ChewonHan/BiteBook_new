@@ -154,8 +154,9 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInAccount gAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (gAccount != null){
             finish();
-            String user = auth.getUid();
-            System.out.println("User: " + user);
+//            String user = auth.getUid();
+//            System.out.println("User: " + user);
+//            System.out.println("ASDFASDFASDFASDFASDFASDFASDFASDF " + gAccount.getId());
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }

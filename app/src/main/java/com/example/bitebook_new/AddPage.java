@@ -27,6 +27,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -140,8 +144,7 @@ public class AddPage extends Fragment {
 
             @Override
             public void onClick(View view) {
-                Log.i("alert", "upload clicked");
-
+                String uid = null;
 //                // get current User
 //                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //                // The user's ID, unique to the Firebase project. Do NOT use this value to
@@ -158,36 +161,43 @@ public class AddPage extends Fragment {
 //                    Log.i("Error", "user not found");
 //                }
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    for (UserInfo profile : user.getProviderData()) {
-                        // Id of the provider (ex: google.com)
-                        String providerId = profile.getProviderId();
-
-                        // UID specific to the provider
-                        String uid = profile.getUid();
-
-                        // Name, email address, and profile photo Url
-                        String name = profile.getDisplayName();
-                        String email = profile.getEmail();
-                        Uri photoUrl = profile.getPhotoUrl();
-                        System.out.println(uid);
-                    }
-                } else {
-                    System.out.println("no user found");
-                }
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                GoogleSignInAccount gAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+//
+//                if (gAccount != null){
+//                    uid = gAccount.getId();
+//                }
+//                else if (user != null) {
+//                    for (UserInfo profile : user.getProviderData()) {
+//                        // Id of the provider (ex: google.com)
+//                        String providerId = profile.getProviderId();
+//
+//                        // UID specific to the provider
+//                        uid = profile.getUid();
+//                    }
+//                } else {
+//                    System.out.println("no user found");
+//                }
+//
+//                if (uid != null) {
+//                    FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
+//                    DatabaseReference myRef = database.getReference(uid + "/entries");
+//                    DatabaseReference newRef = myRef.push();
+//                    newRef.setValue("entrey 1");
+////                    Log.i("User", uid);
+//                }
 
                 // get String input from the element
                 String resName = restaurantName.getText().toString();
                 String menName = menuName.getText().toString();
-                String pri = price.getText().toString();
+                Integer pri = Integer.valueOf(price.getText().toString());
                 float rat = rate.getRating();
                 String fooMemo = foodMemo.getText().toString();
 
                 // check any of necessary inputs are empty/ missing
                 if (resName.isEmpty() ||
                         menName.isEmpty() ||
-                        pri.isEmpty() ||
+                        pri.toString().isEmpty() ||
                         rat == 0.0 ||
                         area == null ||
                         cuisine == null) {
@@ -200,10 +210,12 @@ public class AddPage extends Fragment {
                     }
 
                     // save the user inputs as an object called Entry
-                    Entry food = new Entry(resName, menName, pri, area, cuisine, rat, fooMemo);
-                    entries.add(food);
-
-                    System.out.println(food);
+//                    Entry food = new Entry(resName, menName, pri, area, cuisine, rat, fooMemo);
+//                    entries.add(food);
+////                    FirebaseHelper.createEntry(getContext(), food);
+//                    System.out.println(food);
+                    Entry entry = new Entry(resName, menName, pri, area, rat, fooMemo, cuisine);
+                    FirebaseHelper.createEntry(getContext(), entry);
                 }
             }
         });
@@ -224,7 +236,7 @@ public class AddPage extends Fragment {
                 // Set the Bitmap to the ImageView
                 pictures.setImageBitmap(bitmap);
                 // Save the Bitmap to the MyObject instance
-                Entry.setFoodImage(bitmap);
+//                Entry.setFoodImage(bitmap);
 
             } catch (IOException e) {
                 e.printStackTrace();

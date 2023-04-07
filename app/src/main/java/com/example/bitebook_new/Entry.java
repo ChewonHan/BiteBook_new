@@ -4,17 +4,24 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
-public class Entry {
-    String resName;
-    String menName;
-    String price;
-    String area;
-    float rating;
-    String review;
-    String cuisine;
-    static Bitmap foodImage;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
-    public Entry(String resName, String menName, String price, String area, String cuisine, float rating, String review) {
+public class Entry {
+    private String resName;
+    private String menName;
+    private Integer price;
+    private String area;
+    private float rating;
+    private String review;
+    private String cuisine;
+
+    public Entry() {
+    }
+
+
+    public Entry(String resName, String menName, Integer price, String area, float rating, String review, String cuisine) {
         this.resName = resName;
         this.menName = menName;
         this.price = price;
@@ -24,19 +31,38 @@ public class Entry {
         this.cuisine = cuisine;
     }
 
-    public static void setFoodImage(Bitmap  image){
-        foodImage = image;
+    public Integer getPrice() {
+        return price;
     }
 
-    public Entry getEntry(){
-        return this;
+    public String getMenName() {
+        return menName;
     }
+
+    public String getArea() {
+        return area;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public String getResName() {
+        return resName;
+    }
+
 
     @NonNull
     @Override
     public String toString() {
-        return ("Restaurant Name: " + this.resName + " / Menu Name: " + this.menName + " / Price: " + this.price +
-                " / Area: " + this.area + " / Cuisine Type: " + this.cuisine + " / Rating: " + this.rating +
-                " / Review: "+ this.review + " / Image: " + this.foodImage);
+        return ("asdfsa");
     }
 }
