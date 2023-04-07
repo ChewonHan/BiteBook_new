@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     HomePage homePage = new HomePage();
     AddPage addPage = new AddPage();
     DecidePage decidePage = new DecidePage();
-    AboutUsPage aboutUsPage = new AboutUsPage();
 
 
     
@@ -77,10 +76,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, decidePage).commit();
                 return true;
 
-            // fTODO make the logout button works
-            case R.id.aboutUs:
-                getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, aboutUsPage).commit();
-
+            // TODO make the logout button works
             /** when the logout button is clicked: go to log in page or what
             case R.id.logout:
                 getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, ).commit(); **/

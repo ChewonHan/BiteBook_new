@@ -13,16 +13,4 @@
             android:title="Logout"/>
     </group>
 
-    <item
-        android:title="BiteBook">
-
-        <menu>
-            <item
-                android:id="@+id/aboutUs"
-                android:icon="@drawable/aboutus_icon"
-                android:title="About Us"/>
-        </menu>
-
-    </item>
-
 </menu>

@@ -18,7 +18,6 @@ public class Entry {
     private String cuisine;
     private String image;
     private static int numberOfObject = 0;
-    static Bitmap foodImage;
 
     public Entry() {
     }

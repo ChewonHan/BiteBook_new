@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="400dp"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="@drawable/bkg_image"
+    android:background="@drawable/slide_menu_bkg_image"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
@@ -49,7 +49,7 @@
         android:text="I have n favorite foods"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:layout_marginBottom="45dp"/>
+        android:layout_marginBottom="70dp"/>
 
 
 </LinearLayout>
