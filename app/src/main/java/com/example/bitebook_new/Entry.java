@@ -17,6 +17,8 @@ public class Entry {
     private String review;
     private String cuisine;
     private String image;
+    private static int numberOfObject = 0;
+    static Bitmap foodImage;
 
     public Entry() {
     }
@@ -31,6 +33,7 @@ public class Entry {
         this.review = review;
         this.cuisine = cuisine;
         this.image = image;
+        numberOfObject++;
     }
 
     public Integer getPrice() {
@@ -55,6 +58,10 @@ public class Entry {
 
     public float getRating() {
         return rating;
+    }
+
+    public static int getNumberOfObject() {
+        return numberOfObject;
     }
 
     public String getResName() {

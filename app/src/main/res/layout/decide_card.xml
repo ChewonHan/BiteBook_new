@@ -27,13 +27,6 @@
                 android:textColor="@color/bacon"
                 android:background="@drawable/element_border"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/more_icon"
-                android:layout_marginLeft="315dp"
-                android:layout_marginVertical="11dp"/>
-
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

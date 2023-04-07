@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Random;
 
 public class DecidePage extends Fragment {
 
@@ -25,6 +30,7 @@ public class DecidePage extends Fragment {
     Spinner cuisineSpinner;
     Spinner priceSpinner;
     ArrayList<Entry> entries;
+    Button generateButton;
 
     public DecidePage(){
         // require a empty public constructor
@@ -55,6 +61,7 @@ public class DecidePage extends Fragment {
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         priceSpinner.setAdapter(adapter3);
 
+        // TODO make the entry here share with the addPage entry result
         entries = new ArrayList<>();
 
         Entry item1 = new Entry("Rsname", "filet", 12, "east", 2, "This is amazing", "Western", "url");
@@ -74,6 +81,27 @@ public class DecidePage extends Fragment {
         adapter = new DecideCardAdapter(context, entries);
         decideRecycler.setAdapter(adapter);
 
+        generateButton = view.findViewById(R.id.generateButton);
+
+        generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int menuNumber = RandomNumberGenerator();
+            }
+        });
+
         return view;
     }
+
+    public int RandomNumberGenerator() {
+        // Create a new instance of the Random class
+        Random rand = new Random();
+
+        // Generate a random integer between 0 and total number of the Entry object
+        // TODO change the number of entry based on the spinner
+        int randomNumber = rand.nextInt(Entry.getNumberOfObject());
+
+        return randomNumber;
+    }
+
 }
