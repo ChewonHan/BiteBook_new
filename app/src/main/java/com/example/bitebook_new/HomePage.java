@@ -48,23 +48,6 @@ public class HomePage extends Fragment {
         Context context = container.getContext();
         homeRecycler = (RecyclerView) view.findViewById(R.id.homeRecycler);
 
-        areaSpinner = view.findViewById(R.id.areaSpinner);
-        cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
-        priceSpinner = view.findViewById(R.id.priceSpinner);
-
-        // set up the spinners
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getContext(), R.array.areaSpinner, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        areaSpinner.setAdapter(adapter1);
-
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(), R.array.cuisineSpinner, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cuisineSpinner.setAdapter(adapter2);
-
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(getContext(), R.array.priceSpinner, android.R.layout.simple_spinner_item);
-        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        priceSpinner.setAdapter(adapter3);
-
         // Get a reference to the Firebase Realtime Database
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference myRef = database.getReference(uid + "/entries");
