@@ -9,6 +9,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,6 +71,8 @@ public class AddPage extends Fragment {
     String cuisine;
     Bitmap bitmap;
     TextView addPicDes;
+    String image_url = null;
+    String uri = null;
 
 
     // TODO <ADDITIONAL> change the app icon image
@@ -128,40 +148,39 @@ public class AddPage extends Fragment {
         });
 
 
-
         // when the upload button is clicked the string inputs in each element will be saved in to specific var
         upload.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                String uid = null;
+
                 // get String input from the element
                 String resName = restaurantName.getText().toString();
                 String menName = menuName.getText().toString();
-                String pri = price.getText().toString();
+                Integer pri = Integer.valueOf(price.getText().toString());
                 float rat = rate.getRating();
                 String fooMemo = foodMemo.getText().toString();
 
                 // check any of necessary inputs are empty/ missing
                 if (resName.isEmpty() ||
-                menName.isEmpty() ||
-                pri.isEmpty() ||
-                rat == 0.0 ||
-                area == null ||
-                cuisine == null){
+                        menName.isEmpty() ||
+                        pri.toString().isEmpty() ||
+                        rat == 0.0 ||
+                        area == null ||
+                        cuisine == null) {
                     // if the resName is empty then show a message
                     Toast.makeText(getActivity(), "Please fill in the blanks", Toast.LENGTH_LONG).show();
-                }
-                else{
+                } else {
                     // if food memo is empty then save null instead
-                    if (fooMemo.isEmpty()){
+                    if (fooMemo.isEmpty()) {
                         fooMemo = null;
                     }
 
                     // save the user inputs as an object called Entry
-                    Entry food = new Entry(resName, menName, pri, area, cuisine, rat, fooMemo );
-                    entries.add(food);
 
-                    System.out.println(food);
+                    Entry entry = new Entry(resName, menName, pri, area, rat, fooMemo, cuisine, image_url);
+                    FirebaseHelper.createEntry(getContext(), entry, bitmap);
                 }
             }
         });
@@ -176,13 +195,55 @@ public class AddPage extends Fragment {
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
             // Get the Uri of the selected image
             Uri selectedImage = data.getData();
+
             try {
+                image_url = FirebaseHelper.generateRandomString();
                 // Use the ContentResolver to get a Bitmap from the Uri
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                 // Set the Bitmap to the ImageView
                 pictures.setImageBitmap(bitmap);
                 // Save the Bitmap to the MyObject instance
-                Entry.setFoodImage(bitmap);
+//                Entry.setFoodImage(bitmap);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] pictureData = baos.toByteArray();
+
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                // Create a storage reference from our app
+                StorageReference storageRef = storage.getReference();
+                // Create a child reference
+                // imagesRef now points to "images"
+                StorageReference imagesRef = storageRef.child(image_url);
+
+                // Child references can also take paths
+                // spaceRef now points to "images/space.jpg
+                // imagesRef still points to "images"
+                UploadTask uploadTask = imagesRef.putBytes(pictureData);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                        // ...
+                        imagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                image_url = uri.toString();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
+                    }
+                });
+
+
 
             } catch (IOException e) {
                 e.printStackTrace();

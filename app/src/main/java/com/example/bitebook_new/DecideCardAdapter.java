@@ -32,7 +32,7 @@ public class DecideCardAdapter extends RecyclerView.Adapter<DecideCardAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String title = data.get(position).resName;
+        String title = data.get(position).getResName();
         holder.title.setText(title);
     }
 

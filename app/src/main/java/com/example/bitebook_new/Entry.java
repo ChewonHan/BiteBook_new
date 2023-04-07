@@ -4,58 +4,77 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Entry {
-    String resName;
-    static ArrayList<String> areaList = new ArrayList<>();
-    String menName;
-    String price;
-    static ArrayList<String> priceList = new ArrayList<>();
-    String area;
-    float rating;
-    String review;
-    String cuisine;
-    static ArrayList<String> cuisineList = new ArrayList<>();
+    private String resName;
+    private String menName;
+    private Integer price;
+    private String area;
+    private float rating;
+    private String review;
+    private String cuisine;
+    private String image;
     private static int numberOfObject = 0;
     static Bitmap foodImage;
 
-    public Entry(String resName, String menName, String price, String area, String cuisine, float rating, String review) {
+    public Entry() {
+    }
+
+
+    public Entry(String resName, String menName, Integer price, String area, float rating, String review, String cuisine, String image) {
         this.resName = resName;
-        areaList.add(resName);
         this.menName = menName;
         this.price = price;
-        priceList.add(price);
         this.area = area;
         this.rating = rating;
         this.review = review;
         this.cuisine = cuisine;
-        cuisineList.add(cuisine);
+        this.image = image;
         numberOfObject++;
     }
 
-    public static ArrayList<String> getAreaList() {
-        return areaList;
+    public Integer getPrice() {
+        return price;
+    }
+
+    public String getMenName() {
+        return menName;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public float getRating() {
+        return rating;
     }
 
     public static int getNumberOfObject() {
         return numberOfObject;
     }
 
-    public static void setFoodImage(Bitmap  image){
-        foodImage = image;
+    public String getResName() {
+        return resName;
     }
 
-    public Entry getEntry(){
-        return this;
+    public String getImage() {
+        return image;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return ("Restaurant Name: " + this.resName + " / Menu Name: " + this.menName + " / Price: " + this.price +
-                " / Area: " + this.area + " / Cuisine Type: " + this.cuisine + " / Rating: " + this.rating +
-                " / Review: "+ this.review + " / Image: " + this.foodImage);
+        return ("asdfsa");
     }
 }

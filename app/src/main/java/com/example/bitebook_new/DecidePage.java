@@ -64,7 +64,7 @@ public class DecidePage extends Fragment {
         // TODO make the entry here share with the addPage entry result
         entries = new ArrayList<>();
 
-        Entry item1 = new Entry("McDonalds", "BigMac","3", "Central", "Western",3, "Best food ever");
+        Entry item1 = new Entry("Rsname", "filet", 12, "east", 2, "This is amazing", "Western", "url");
 
         entries.add(item1);
 
