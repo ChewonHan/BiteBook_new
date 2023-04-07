@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, decidePage).commit();
                 return true;
 
+            // fTODO make the logout button works
             case R.id.aboutUs:
                 getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, aboutUsPage).commit();
 
