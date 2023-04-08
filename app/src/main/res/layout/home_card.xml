@@ -42,37 +42,37 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/rateStar5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    android:src="@drawable/rate_star_icon" />
-
-                <ImageView
-                    android:id="@+id/rateStar4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    android:src="@drawable/rate_star_icon" />
-
-                <ImageView
-                    android:id="@+id/rateStar3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/rateStar1"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginVertical="5dp"
                     android:src="@drawable/rate_star_icon" />
 
                 <ImageView
                     android:id="@+id/rateStar2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginVertical="5dp"
                     android:src="@drawable/rate_star_icon" />
 
                 <ImageView
-                    android:id="@+id/rateStar1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/rateStar3"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginVertical="5dp"
+                    android:src="@drawable/rate_star_icon" />
+
+                <ImageView
+                    android:id="@+id/rateStar4"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginVertical="5dp"
+                    android:src="@drawable/rate_star_icon" />
+
+                <ImageView
+                    android:id="@+id/rateStar5"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginVertical="5dp"
                     android:layout_marginRight="10dp"
                     android:src="@drawable/rate_star_icon" />

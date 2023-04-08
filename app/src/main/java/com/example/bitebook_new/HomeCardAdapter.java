@@ -58,6 +58,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         Entry entry = data.get(position);
 
         String title = entry.getResName();
+        float rating = entry.getRating();
         holder.title.setText(title);
 
         // before expand the CardView
@@ -68,6 +69,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         holder.line3.setVisibility(View.GONE);
         holder.description.setVisibility(View.GONE);
 
+        // shows image depends on the input
         if (entry.getImage() == null){
             holder.image.setVisibility(View.GONE);
             holder.line2.setVisibility(View.GONE);
@@ -78,6 +80,48 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                     .load(entry.getImage())
                     .into(holder.image);
         }
+
+        // shows the number of stars depends on the input
+        if (rating == 1){
+            holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
+        }else if (rating == 1.5){
+            holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star2.setImageResource(R.drawable.rate_star_half_icon);
+        }else if (rating == 2){
+            holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star2.setImageResource(R.drawable.satiesfied_rate_star_icon);
+        }else if (rating == 2.5){
+            holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star2.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star3.setImageResource(R.drawable.rate_star_half_icon);
+        }else if (rating == 3){
+            holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star2.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star3.setImageResource(R.drawable.satiesfied_rate_star_icon);
+        }else if (rating == 3.5){
+            holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star2.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star3.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star4.setImageResource(R.drawable.rate_star_half_icon);
+        }else if (rating == 4){
+            holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star2.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star3.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star4.setImageResource(R.drawable.satiesfied_rate_star_icon);
+        }else if (rating == 4.5){
+            holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star2.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star3.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star4.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star5.setImageResource(R.drawable.rate_star_half_icon);
+        }else if (rating == 5){
+            holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star2.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star3.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star4.setImageResource(R.drawable.satiesfied_rate_star_icon);
+            holder.star5.setImageResource(R.drawable.satiesfied_rate_star_icon);
+        }
+
 
         holder.moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +161,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, description, resNameCard, price, area, cuisine;
-        ImageView image;
+        ImageView image, star1, star2, star3, star4, star5;
         View line2, line3;
         ImageView moreButton;
 
@@ -135,6 +179,13 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             area = itemView.findViewById(R.id.area);
             cuisine = itemView.findViewById(R.id.cuisine);
             line3 = itemView.findViewById(R.id.line3);
+
+            // items for show rating stars
+            star1 = itemView.findViewById(R.id.rateStar1);
+            star2 = itemView.findViewById(R.id.rateStar2);
+            star3 = itemView.findViewById(R.id.rateStar3);
+            star4 = itemView.findViewById(R.id.rateStar4);
+            star5 = itemView.findViewById(R.id.rateStar5);
 
         }
     }

@@ -8,12 +8,30 @@
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/addPageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_above="@+id/addPageCard"
+        android:text="New Food Record"
+        android:textColor="@color/bacon"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/addPageTitle"
+
+        android:background="@color/bacon" />
+
     <RelativeLayout
+        android:id="@+id/addPageCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="80dp"
         android:layout_marginHorizontal="10dp"
-        android:background="@drawable/element_border"
         android:layout_centerInParent="true">
 
     <EditText
@@ -69,8 +87,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/cuisineSpinner"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="18dp"
-        android:text="Rate your food"/>
+        android:layout_marginTop="20dp"
+        android:hint="Rate your food"/>
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -131,8 +149,9 @@
         android:layout_below="@+id/imageView"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:id="@+id/upload"
         android:text="Upload"
         android:layout_centerHorizontal="true"
