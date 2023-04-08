@@ -28,16 +28,9 @@ import java.util.ArrayList;
 public class HomePage extends Fragment {
     RecyclerView homeRecycler;
     RecyclerView.Adapter adapter;
-    ArrayList<String> items;
-    ArrayList<Entry> entries;
-    Spinner areaSpinner;
-    Spinner cuisineSpinner;
-    Spinner priceSpinner;
 
 
-    public HomePage() {
-        // require a empty public constructor
-    }
+    public HomePage() {}
 
 
     @SuppressLint("MissingInflatedId")

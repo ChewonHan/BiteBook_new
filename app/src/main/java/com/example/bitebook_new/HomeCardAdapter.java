@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHolder> {
@@ -30,6 +31,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     private List<Entry> data;
 
     private boolean isExpanded = false;
+    private boolean isClicked = false;
 
 
 //    HomeCardAdapter(Context content, List<String> data) {
@@ -57,9 +59,9 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
         Entry entry = data.get(position);
 
-        String title = entry.getResName();
+        String foodName = entry.getMenName();
         float rating = entry.getRating();
-        holder.title.setText(title);
+        holder.foodName.setText(foodName);
 
         // before expand the CardView
         holder.resNameCard.setVisibility(View.GONE);
@@ -122,13 +124,38 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             holder.star5.setImageResource(R.drawable.satiesfied_rate_star_icon);
         }
 
+        // change the fav_icon depends on the user's click
+        holder.favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isClicked = !isClicked;
 
+                if (isClicked){
+                    holder.favButton.setImageResource(R.drawable.fav_icon_clicked);
+                    // if the favList doesn't have current food & if the button is clicked,
+                    // add it to the favList
+
+                    if (!Entry.getFavList().contains(foodName)){
+                        Entry.setFavList(foodName);
+                    }
+                }
+                else{
+                    holder.favButton.setImageResource(R.drawable.fav_icon);
+                    if (Entry.getFavList().contains(foodName)){
+                        Entry.removeFavList(foodName);
+                    }
+                }
+            }
+        });
+
+        // collapse/ expand the card depends on the user's click
         holder.moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 isExpanded = !isExpanded;
 
                 if (isExpanded){
+                    holder.moreButton.setImageResource(R.drawable.more_icon_clicked);
                     holder.resNameCard.setVisibility(View.VISIBLE);
                     holder.price.setVisibility(View.VISIBLE);
                     holder.area.setVisibility(View.VISIBLE);
@@ -140,6 +167,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                     }
                 }
                 else{
+                    holder.moreButton.setImageResource(R.drawable.more_icon);
                     holder.resNameCard.setVisibility(View.GONE);
                     holder.price.setVisibility(View.GONE);
                     holder.area.setVisibility(View.GONE);
@@ -160,18 +188,18 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, description, resNameCard, price, area, cuisine;
-        ImageView image, star1, star2, star3, star4, star5;
+        TextView foodName, description, resNameCard, price, area, cuisine;
+        ImageView image, star1, star2, star3, star4, star5, moreButton, favButton;
         View line2, line3;
-        ImageView moreButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.foodName);
+            foodName = itemView.findViewById(R.id.foodName);
             description = itemView.findViewById(R.id.review);
             image = itemView.findViewById(R.id.foodPic);
             line2 = itemView.findViewById(R.id.line2);
             moreButton = itemView.findViewById(R.id.moreIcon);
+            favButton = itemView.findViewById(R.id.favIcon);
 
             // items to be shown when the button is clicked
             resNameCard = itemView.findViewById(R.id.resNameCard);
@@ -189,4 +217,15 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
         }
     }
+
+//    public boolean have(String food){
+//        boolean have = false;
+//        for (String item : Entry.getFavList()) {
+//            if (item.equals(food)) {
+//                have = true;
+//                break;
+//            }
+//        }
+//        return have;
+//    }
 }

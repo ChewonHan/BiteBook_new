@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class Entry {
     private String cuisine;
     private String image;
     private static int numberOfObject = 0;
+    private static ArrayList<String> favList = new ArrayList<>();
 
     public Entry() {
     }
@@ -69,6 +71,18 @@ public class Entry {
 
     public String getImage() {
         return image;
+    }
+
+    public static void setFavList(String food) {
+        Entry.favList.add(food);
+    }
+
+    public static void removeFavList(String food) {
+        Entry.favList.remove(food);
+    }
+
+    public static ArrayList<String> getFavList() {
+        return favList;
     }
 
     @NonNull

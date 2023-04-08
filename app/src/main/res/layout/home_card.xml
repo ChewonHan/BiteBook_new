@@ -167,7 +167,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/resNameCard"
-                android:layout_marginHorizontal="10dp">
+                android:layout_marginHorizontal="10dp"
+                android:textColor="@color/bright_red">
 
                 <TextView
                     android:id="@+id/price"
@@ -175,7 +176,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:hint="price"/>
+                    android:hint="price"
+                    android:textColor="@color/bright_red"/>
 
                 <TextView
                     android:id="@+id/area"
@@ -183,7 +185,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:hint="area"/>
+                    android:hint="area"
+                    android:textColor="@color/bright_red"/>
 
                 <TextView
                     android:id="@+id/cuisine"
@@ -191,7 +194,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:hint="cuisine"/>
+                    android:hint="cuisine"
+                    android:textColor="@color/bright_red"/>
             </LinearLayout>
 
             <TextView
