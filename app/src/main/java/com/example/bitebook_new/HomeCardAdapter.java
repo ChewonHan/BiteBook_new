@@ -1,8 +1,11 @@
 package com.example.bitebook_new;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -23,6 +31,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHolder> {
@@ -32,13 +42,6 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
     private boolean isExpanded = false;
     private boolean isClicked = false;
-
-
-//    HomeCardAdapter(Context content, List<String> data) {
-//        this.layoutInflater = LayoutInflater.from(content);
-//        this.data = data;
-//    }
-
 
 
     HomeCardAdapter(Context content, List<Entry> data) {
@@ -124,6 +127,11 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             holder.star5.setImageResource(R.drawable.satiesfied_rate_star_icon);
         }
 
+        // set the date of upload
+        holder.date.setText(entry.getDate());
+
+
+
         // change the fav_icon depends on the user's click
         holder.favButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,7 +186,6 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             }
         });
 
-
     }
 
     @Override
@@ -188,7 +195,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView foodName, description, resNameCard, price, area, cuisine;
+        TextView foodName, description, resNameCard, price, area, cuisine, date;
         ImageView image, star1, star2, star3, star4, star5, moreButton, favButton;
         View line2, line3;
 
@@ -200,6 +207,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             line2 = itemView.findViewById(R.id.line2);
             moreButton = itemView.findViewById(R.id.moreIcon);
             favButton = itemView.findViewById(R.id.favIcon);
+            date = itemView.findViewById(R.id.date);
 
             // items to be shown when the button is clicked
             resNameCard = itemView.findViewById(R.id.resNameCard);
@@ -217,15 +225,4 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
         }
     }
-
-//    public boolean have(String food){
-//        boolean have = false;
-//        for (String item : Entry.getFavList()) {
-//            if (item.equals(food)) {
-//                have = true;
-//                break;
-//            }
-//        }
-//        return have;
-//    }
 }

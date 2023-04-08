@@ -1,13 +1,9 @@
 package com.example.bitebook_new;
 
-import android.graphics.Bitmap;
-
 import androidx.annotation.NonNull;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Calendar;
 
 public class Entry {
     private String resName;
@@ -20,6 +16,11 @@ public class Entry {
     private String image;
     private static int numberOfObject = 0;
     private static ArrayList<String> favList = new ArrayList<>();
+
+    private String date;
+    private int mYear;
+    private String mMonth;
+    private int mDay;
 
     public Entry() {
     }
@@ -35,6 +36,24 @@ public class Entry {
         this.cuisine = cuisine;
         this.image = image;
         numberOfObject++;
+        this.date = setDate();
+    }
+
+    private String setDate(){
+        Calendar calendar = Calendar.getInstance();
+        mYear = calendar.get(Calendar.YEAR);
+
+        String[] months = new String[] {"JAN", "FEB", "MAR", "APR",
+                "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+        mMonth = months[calendar.MONTH + 1]; // Get the current month name
+        System.out.println(mMonth);
+
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        return (mDay + " / " + mMonth + " / " + mYear);
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public Integer getPrice() {
