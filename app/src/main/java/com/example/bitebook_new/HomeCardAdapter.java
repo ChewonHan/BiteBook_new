@@ -130,8 +130,6 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         // set the date of upload
         holder.date.setText(entry.getDate());
 
-
-
         // change the fav_icon depends on the user's click
         holder.favButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +161,12 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                 isExpanded = !isExpanded;
 
                 if (isExpanded){
+                    // set the data for the hidden information
+                    holder.resNameCard.setText(entry.getResName());
+                    holder.price.setText(String.valueOf(entry.getPrice()));
+                    holder.area.setText(entry.getArea());
+                    holder.cuisine.setText(entry.getCuisine());
+
                     holder.moreButton.setImageResource(R.drawable.more_icon_clicked);
                     holder.resNameCard.setVisibility(View.VISIBLE);
                     holder.price.setVisibility(View.VISIBLE);
@@ -171,6 +175,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                     holder.line3.setVisibility(View.VISIBLE);
 
                     if (entry.getReview() != null) {
+                        holder.description.setText(entry.getReview());
                         holder.description.setVisibility(View.VISIBLE);
                     }
                 }

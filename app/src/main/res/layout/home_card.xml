@@ -160,7 +160,9 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_below="@+id/line3"
-                android:hint="restaurant name"/>
+                android:hint="restaurant name"
+                android:textStyle="bold"
+                android:textColor="@color/bright_red"/>
 
             <LinearLayout
                 android:id="@+id/price_area_cuisine"
@@ -177,6 +179,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:hint="price"
+                    android:textStyle="bold"
                     android:textColor="@color/bright_red"/>
 
                 <TextView
@@ -186,6 +189,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:hint="area"
+                    android:textStyle="bold"
                     android:textColor="@color/bright_red"/>
 
                 <TextView
@@ -195,6 +199,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:hint="cuisine"
+                    android:textStyle="bold"
                     android:textColor="@color/bright_red"/>
             </LinearLayout>
 
@@ -205,7 +210,9 @@
                 android:layout_below="@+id/price_area_cuisine"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="5dp"
-                android:hint="review"/>
+                android:hint="review"
+                android:textStyle="bold"
+                android:textColor="@color/bright_red"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
