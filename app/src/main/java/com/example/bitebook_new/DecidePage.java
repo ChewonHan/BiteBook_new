@@ -65,8 +65,10 @@ public class DecidePage extends Fragment {
         entries = new ArrayList<>();
 
         Entry item1 = new Entry("Resname", "filet", 12, "east", 2, "This is amazing", "Western", "url");
+        Entry item2 = new Entry("item 2", "filet", 12, "east", 2, "This is amazing", "Western", "url");
 
         entries.add(item1);
+        entries.add(item2);
 
         decideRecycler = (RecyclerView) view.findViewById(R.id.decideRecycler);
 

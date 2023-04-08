@@ -52,6 +52,7 @@ public class HomePage extends Fragment {
                 ArrayList<Entry> entries = new ArrayList<>();
                 for (DataSnapshot entrySnapshot : dataSnapshot.getChildren()) {
                     Entry entry = entrySnapshot.getValue(Entry.class);
+
                     entries.add(entry);
                 }
 

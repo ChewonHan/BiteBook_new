@@ -74,18 +74,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
 
+
         findViewById(R.id.profileButton).setOnClickListener(new View.OnClickListener() {
-
-
-
             @Override
             public void onClick(View view) {
 
                 System.out.println(entries);
                 System.out.println(entries.size());
                 drawerLayout.openDrawer(GravityCompat.START);
-                // foodNumber.setText( entries.size());
-                // favNumber.setText("I have " + entry.getFavList().size() + " favorite foods");
+
+                foodNumber = findViewById(R.id.foodNumber);
+                foodNumber.setText(String.valueOf(entries.size()));
+
+//                favNumber = findViewById(R.id.favNumber);
+//                 favNumber.setText("I have " + String.valueOf(entries.getFavList().size()) + " favorite foods");
+
             }
         });
 
@@ -125,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
     }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
