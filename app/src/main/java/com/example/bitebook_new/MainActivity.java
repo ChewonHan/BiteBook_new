@@ -10,8 +10,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +27,17 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    TextView foodNumber;
+    TextView favNumber;
+    ArrayList<Entry> entries = new ArrayList<>();
+    Entry entry;
 
 
     @Override
@@ -37,12 +50,42 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigationView = findViewById(R.id.drawerMenu);
         navigationView.setNavigationItemSelectedListener(this);
 
+        foodNumber = findViewById(R.id.foodNumber);
+        favNumber = findViewById(R.id.favNumber);
+
+        // Get a reference to the Firebase Realtime Database
+        String uid = FirebaseHelper.getCurrentUser(this);
+        Context context = getApplicationContext();
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference myRef = database.getReference(uid + "/entries");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot entrySnapshot : snapshot.getChildren()) {
+                    entry = entrySnapshot.getValue(Entry.class);
+                    entries.add(entry);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("Error", "loadPost:onCancelled", error.toException());
+            }
+        });
 
         findViewById(R.id.profileButton).setOnClickListener(new View.OnClickListener() {
 
+
+
             @Override
             public void onClick(View view) {
+
+                System.out.println(entries);
+                System.out.println(entries.size());
                 drawerLayout.openDrawer(GravityCompat.START);
+                // foodNumber.setText( entries.size());
+                // favNumber.setText("I have " + entry.getFavList().size() + " favorite foods");
             }
         });
 
@@ -58,8 +101,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     AddPage addPage = new AddPage();
     DecidePage decidePage = new DecidePage();
 
-
-    
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 

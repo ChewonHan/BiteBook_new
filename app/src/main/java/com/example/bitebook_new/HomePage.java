@@ -60,10 +60,6 @@ public class HomePage extends Fragment {
                 homeRecycler.setLayoutManager(layoutManager);
                 adapter = new HomeCardAdapter(context, entries);
                 homeRecycler.setAdapter(adapter);
-                // Set up the RecyclerView with the adapter
-//                RecyclerView entriesRecyclerView = findViewById(R.id.entriesRecyclerView);
-//                EntryAdapter entryAdapter = new EntryAdapter(entries);
-//                entriesRecyclerView.setAdapter(entryAdapter);
             }
 
             @Override

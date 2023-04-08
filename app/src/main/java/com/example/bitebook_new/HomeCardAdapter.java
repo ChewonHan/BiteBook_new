@@ -2,6 +2,7 @@ package com.example.bitebook_new;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -43,8 +45,11 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     private boolean isExpanded = false;
     private boolean isClicked = false;
 
+    private Context content;
+
 
     HomeCardAdapter(Context content, List<Entry> data) {
+        this.content = content;
         this.layoutInflater = LayoutInflater.from(content);
         this.data = data;
     }
@@ -58,7 +63,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         Entry entry = data.get(position);
 
@@ -137,6 +142,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                 isClicked = !isClicked;
 
                 if (isClicked){
+                    Toast.makeText(content, "Added to the favorite list", Toast.LENGTH_LONG).show();
                     holder.favButton.setImageResource(R.drawable.fav_icon_clicked);
                     // if the favList doesn't have current food & if the button is clicked,
                     // add it to the favList
@@ -146,6 +152,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                     }
                 }
                 else{
+                    Toast.makeText(content, "Removed from the favorite list", Toast.LENGTH_LONG).show();
                     holder.favButton.setImageResource(R.drawable.fav_icon);
                     if (Entry.getFavList().contains(foodName)){
                         Entry.removeFavList(foodName);
@@ -191,6 +198,22 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             }
         });
 
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data.remove(position);
+                Toast.makeText(content, "Removed completely", Toast.LENGTH_LONG).show();
+                // TODO after deleting, need refresh to show it is deleted
+            }
+        });
+
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override
@@ -201,7 +224,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView foodName, description, resNameCard, price, area, cuisine, date;
-        ImageView image, star1, star2, star3, star4, star5, moreButton, favButton;
+        ImageView image, star1, star2, star3, star4, star5, moreButton, favButton, deleteButton, editButton;
         View line2, line3;
 
         public ViewHolder(@NonNull View itemView) {
@@ -213,6 +236,8 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             moreButton = itemView.findViewById(R.id.moreIcon);
             favButton = itemView.findViewById(R.id.favIcon);
             date = itemView.findViewById(R.id.date);
+            deleteButton = itemView.findViewById(R.id.deleteIcon);
+            editButton = itemView.findViewById(R.id.editIcon);
 
             // items to be shown when the button is clicked
             resNameCard = itemView.findViewById(R.id.resNameCard);
