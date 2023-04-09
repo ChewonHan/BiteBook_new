@@ -33,8 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_centerInParent="true">
-
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -42,7 +41,12 @@
         android:textSize="15dp"
         android:backgroundTint="@color/bacon"
         android:id="@+id/restaurantName"
-        android:hint="Restaurant Name" />
+        android:hint="Restaurant Name"/>
+<!--    <TextView-->
+<!--        android:id="@+id/response"-->
+<!--        android:textIsSelectable="true"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
 
     <EditText
         android:id="@+id/menuName"
