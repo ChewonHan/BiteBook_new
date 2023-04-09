@@ -138,12 +138,12 @@ public class PlaceAutoSuggestAdapter extends ArrayAdapter<AutocompletePrediction
         final FindAutocompletePredictionsRequest.Builder requestBuilder =
                 FindAutocompletePredictionsRequest.builder()
                         .setQuery(constraint.toString())
-                        .setCountry("") //Use only in specific country
+                        .setCountry("SG") //Use only in specific country
                         // Call either setLocationBias() OR setLocationRestriction().
                         .setLocationBias(bounds)
 //                        .setLocationRestriction(bounds)
                         .setSessionToken(AutocompleteSessionToken.newInstance())
-                        .setTypeFilter(TypeFilter.ADDRESS);
+                        .setTypeFilter(TypeFilter.ESTABLISHMENT);
 
         Task<FindAutocompletePredictionsResponse> results =
                 placesClient.findAutocompletePredictions(requestBuilder.build());
