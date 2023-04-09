@@ -7,6 +7,5 @@
     android:id="@+id/nav_view"
     android:layout_gravity="start"
     app:headerLayout="@layout/nav_header"
-    app:menu="@menu/slide_menu"
     app:itemIconTint="@color/bacon"
     app:itemTextColor="@color/bacon" />

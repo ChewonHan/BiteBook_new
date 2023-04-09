@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn = "navigation_view">
 
-    <group
-        android:checkableBehavior="single">
+<!--    <group-->
+<!--        android:checkableBehavior="single">-->
 
-        <item
-            android:id="@+id/logout"
-            android:icon="@drawable/logout_icon"
-            android:title="Logout"/>
-    </group>
+<!--        <item-->
+<!--            android:id="@+id/logout"-->
+<!--            android:icon="@drawable/logout_icon"-->
+<!--            android:title="Logout"/>-->
+<!--    </group>-->
 
 </menu>

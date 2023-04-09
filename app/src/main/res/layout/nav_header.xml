@@ -1,55 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="400dp"
-    android:gravity="bottom"
-    android:padding="16dp"
-    android:background="@drawable/slide_menu_bkg_image"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:gravity="top"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/logo_white"
-        android:layout_marginTop="20dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="250dp"
+        android:layout_height="600dp"
+        android:gravity="bottom"
+        android:padding="16dp"
+        android:background="@drawable/slide_menu_bkg_image">
 
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="UserName"
-        android:textSize="24dp"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logo_white"
+            android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:id="@+id/userId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@UserId"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textStyle="italic"/>
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UserName"
+            android:textSize="24dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/foodNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="I have eaten n different foods"
-        android:textColor="@color/white"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/userId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UserId"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="italic"/>
 
-    <TextView
-        android:id="@+id/favNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="I have n favorite foods"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:layout_marginBottom="70dp"/>
+        <TextView
+            android:id="@+id/foodNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="I have eaten n different foods"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
+        <TextView
+            android:id="@+id/favNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I have n favorite foods"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginBottom="70dp"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding = "16dp"
+        android:background="@color/white"
+        android:gravity="bottom">
+
+        <ImageView
+            android:onClick="logout"
+            android:id="@+id/logoutIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logout_icon"
+            app:tint="@color/bacon" />
+
+        <TextView
+            android:onClick="logout"
+            android:id="@+id/logoutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:layout_marginLeft="5dp"
+            android:textSize="16dp"
+            android:padding="2dp"
+            android:textColor="@color/bacon"/>
+    </LinearLayout>
 </LinearLayout>
