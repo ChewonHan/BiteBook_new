@@ -1,15 +1,20 @@
 package com.example.bitebook_new;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,7 +31,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import java.util.ArrayList;
@@ -34,24 +43,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     BottomNavigationView bottomNavigationView;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    TextView foodNumber;
-    TextView favNumber;
+    TextView foodNumber, favNumber, userName, userId,logoutText;
+    ImageView logoutIcon, logoutButton;
     ArrayList<Entry> entries = new ArrayList<>();
     Entry entry;
+    private FirebaseAuth auth;
+    AlertDialog.Builder builder;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.drawerMenu);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        foodNumber = findViewById(R.id.foodNumber);
-        favNumber = findViewById(R.id.favNumber);
 
         // Get a reference to the Firebase Realtime Database
         String uid = FirebaseHelper.getCurrentUser(this);
@@ -74,30 +77,113 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+//        navigationView = findViewById(R.id.drawerMenu);
+//        navigationView.setNavigationItemSelectedListener(this);
 
+        // show the navigation drawer for the profile info
         findViewById(R.id.profileButton).setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
-                System.out.println(entries);
-                System.out.println(entries.size());
+                // when the button is clicked, open the slide menu
                 drawerLayout.openDrawer(GravityCompat.START);
 
-                foodNumber = findViewById(R.id.foodNumber);
-                foodNumber.setText(String.valueOf(entries.size()));
+                // set the user name and ID
+                userName = findViewById(R.id.userName);
+                userId = findViewById(R.id.userId);
+                // if the user used google account:
+                GoogleSignInAccount gAccount = GoogleSignIn.getLastSignedInAccount(context);
+                if (gAccount != null){
+                    String gName = gAccount.getDisplayName();
+                    userName.setText(gName);
+                    String gID = gAccount.getId();
+                    userId.setText("@" + gID);
+                }
 
-//                favNumber = findViewById(R.id.favNumber);
-//                 favNumber.setText("I have " + String.valueOf(entries.getFavList().size()) + " favorite foods");
+
+                // show the number of food tried and
+                foodNumber = findViewById(R.id.foodNumber);
+                favNumber = findViewById(R.id.favNumber);
+
+                foodNumber.setText( "I have eaten " + Integer.toString(entries.size()) + " different foods");
+                favNumber.setText("I have " + Integer.toString(entry.getFavList().size()) + " favorite foods");
+
+                // TODO figure it out if the logout works in the homePage
+
+//                // logout button @ drawer
+//                logoutIcon = findViewById(R.id.logoutIcon);
+//                logoutText = findViewById(R.id.logoutText);
+//
+//                findViewById(R.id.logoutIcon).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        auth.signOut();
+//                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                        Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//
+//                findViewById(R.id.logoutText).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        auth.signOut();
+//                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                        Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
+//                    }
+//                });
 
             }
         });
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        logoutButton = findViewById(R.id.logoutButton);
+        auth = FirebaseAuth.getInstance();
+        builder = new AlertDialog.Builder(context);
+
+        //button at home page
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                auth.signOut();
+                finish();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
+
+                // TODO make this works: shows the alert when it is clicked
+
+//                Toast.makeText(MainActivity.this, " Clicked", Toast.LENGTH_LONG).show();
+//
+//
+//                builder.setTitle("Logout");
+//                builder.setMessage("Are you sure want to logout?")
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        auth.signOut();
+//                        finish();
+//                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                        Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
+//                    }
+//                })
+//                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        dialogInterface.dismiss();
+//                    }
+//                });
+            }
+        });
+
+
+
+        // bottom nav bar
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
 
     }
-
 
     // from here, the code below is for the bottom navigation bar
     HomePage homePage = new HomePage();
@@ -120,14 +206,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, decidePage).commit();
                 return true;
 
-            // TODO make the logout button works
-            /** when the logout button is clicked: go to log in page or what
-            case R.id.logout:
-                getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, ).commit(); **/
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
         return false;
     }
+
 
     @Override
     public void onBackPressed() {
