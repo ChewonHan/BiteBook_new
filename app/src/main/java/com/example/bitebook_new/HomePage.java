@@ -72,20 +72,6 @@ public class HomePage extends Fragment {
                 Log.w("Error", "loadPost:onCancelled", error.toException());
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         return view;
     }
 }
