@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         });
 
         drawerLayout = findViewById(R.id.drawer_layout);
-//        navigationView = findViewById(R.id.drawerMenu);
-//        navigationView.setNavigationItemSelectedListener(this);
+        navigationView = findViewById(R.id.drawerMenu);
+        navigationView.setNavigationItemSelectedListener(this);
 
         // show the navigation drawer for the profile info
         findViewById(R.id.profileButton).setOnClickListener(new View.OnClickListener() {
@@ -115,30 +115,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 foodNumber.setText("I have eaten " + Integer.toString(entries.size()) + " different foods");
                 favNumber.setText("I have " + Integer.toString(entry.getFavList().size()) + " favorite foods");
 
-                // TODO figure it out if the logout works in the homePage
-
-//                // logout button @ drawer
-//                logoutIcon = findViewById(R.id.logoutIcon);
-//                logoutText = findViewById(R.id.logoutText);
-//
-//                findViewById(R.id.logoutIcon).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        auth.signOut();
-//                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                        Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//
-//                findViewById(R.id.logoutText).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        auth.signOut();
-//                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                        Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
-//                    }
-//                });
-
             }
         });
 
@@ -161,45 +137,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
                     }
                 });
+
+
+/*             //code for making an alert but doesn't work
+                builder.setTitle("Logout");
+                builder.setMessage("Are you sure want to logout?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        gClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                finish();
+                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+                })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }); */
             }
         });
-
-        //button at home page
-//        logoutButton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                auth.signOut();
-//                finish();
-//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
-//                
-//                
-//
-//                // TODO make this works: shows the alert when it is clicked
-//
-////                Toast.makeText(MainActivity.this, " Clicked", Toast.LENGTH_LONG).show();
-////
-////
-////                builder.setTitle("Logout");
-////                builder.setMessage("Are you sure want to logout?")
-////                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-////                    @Override
-////                    public void onClick(DialogInterface dialogInterface, int i) {
-////                        auth.signOut();
-////                        finish();
-////                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-////                        Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
-////                    }
-////                })
-////                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-////                    @Override
-////                    public void onClick(DialogInterface dialogInterface, int i) {
-////                        dialogInterface.dismiss();
-////                    }
-////                });
-//            }
-//        });
 
 
         // bottom nav bar

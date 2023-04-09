@@ -86,6 +86,38 @@ public class Entry {
         return image;
     }
 
+    public void setResName(String resName) {
+        this.resName = resName;
+    }
+
+    public void setMenName(String menName) {
+        this.menName = menName;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public static void setFavList(String food) {
         Entry.favList.add(food);
     }

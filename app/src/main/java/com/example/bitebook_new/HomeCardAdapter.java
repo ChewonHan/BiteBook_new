@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -11,12 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -92,7 +97,10 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         }
 
         // shows the number of stars depends on the input
-        if (rating == 1){
+        if (rating == 0.5){
+            holder.star1.setImageResource(R.drawable.rate_star_half_icon);
+        }
+        else if (rating == 1){
             holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
         }else if (rating == 1.5){
             holder.star1.setImageResource(R.drawable.satiesfied_rate_star_icon);
@@ -211,6 +219,12 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             @Override
             public void onClick(View view) {
 
+                EditPage editPage = new EditPage( content, entry);
+                FragmentManager fragmentManager = ((AppCompatActivity) content).getSupportFragmentManager();
+
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.drawer_layout, editPage).commit();
             }
         });
 
