@@ -7,6 +7,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -34,8 +36,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     BottomNavigationView bottomNavigationView;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    TextView foodNumber;
-    TextView favNumber;
+    TextView foodNumber, favNumber, userName, userId;
     ArrayList<Entry> entries = new ArrayList<>();
     Entry entry;
 
@@ -49,9 +50,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.drawerMenu);
         navigationView.setNavigationItemSelectedListener(this);
-
-        foodNumber = findViewById(R.id.foodNumber);
-        favNumber = findViewById(R.id.favNumber);
 
         // Get a reference to the Firebase Realtime Database
         String uid = FirebaseHelper.getCurrentUser(this);
@@ -81,11 +79,28 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onClick(View view) {
 
-                System.out.println(entries);
-                System.out.println(entries.size());
+                // when the button is clicked, open the slide menu
                 drawerLayout.openDrawer(GravityCompat.START);
-                // foodNumber.setText( entries.size());
-                // favNumber.setText("I have " + entry.getFavList().size() + " favorite foods");
+
+                // set the user name and ID
+                userName = findViewById(R.id.userName);
+                userId = findViewById(R.id.userId);
+                // if the user used google account:
+                GoogleSignInAccount gAccount = GoogleSignIn.getLastSignedInAccount(context);
+                if (gAccount != null){
+                    String gName = gAccount.getDisplayName();
+                    userName.setText(gName);
+                    String gID = gAccount.getId();
+                    userId.setText("@" + gID);
+                }
+
+
+                // show the number of food tried and
+                foodNumber = findViewById(R.id.foodNumber);
+                favNumber = findViewById(R.id.favNumber);
+
+                foodNumber.setText( "I have eaten " + Integer.toString(entries.size()) + " different foods");
+                favNumber.setText("I have " + Integer.toString(entry.getFavList().size()) + " favorite foods");
             }
         });
 

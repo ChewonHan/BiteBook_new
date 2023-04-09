@@ -14,7 +14,6 @@ public class Entry {
     private String review;
     private String cuisine;
     private String image;
-    private static int numberOfObject = 0;
     private static ArrayList<String> favList = new ArrayList<>();
 
     private String date;
@@ -35,7 +34,6 @@ public class Entry {
         this.review = review;
         this.cuisine = cuisine;
         this.image = image;
-        numberOfObject++;
         this.date = setDate();
     }
 
@@ -78,10 +76,6 @@ public class Entry {
 
     public float getRating() {
         return rating;
-    }
-
-    public static int getNumberOfObject() {
-        return numberOfObject;
     }
 
     public String getResName() {

@@ -170,7 +170,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                 if (isExpanded){
                     // set the data for the hidden information
                     holder.resNameCard.setText(entry.getResName());
-                    holder.price.setText(String.valueOf(entry.getPrice()));
+                    holder.price.setText(String.valueOf(entry.getPrice()) + " SGD");
                     holder.area.setText(entry.getArea());
                     holder.cuisine.setText(entry.getCuisine());
 
