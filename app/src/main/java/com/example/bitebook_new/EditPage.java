@@ -66,11 +66,13 @@ public class EditPage extends Fragment {
     private Entry data;
     private int areaIdx;
     int cuisineIdx;
+    private String id;
 
 
-    public EditPage(Context content, Entry data) {
+    public EditPage(Context content, Entry data, String id) {
         this.content = content;
         this.data = data;
+        this.id =id;
     }
 
     @SuppressLint("MissingInflatedId")
@@ -215,7 +217,7 @@ public class EditPage extends Fragment {
                     // change the data in Entry
                     Entry entry = new Entry(resName, menName, pri, area, rat, fooMemo, cuisine, image_url);
 
-                    FirebaseHelper.updateEntry(content, entry, bitmap);
+                    FirebaseHelper.updateEntry(content, entry, bitmap, id);
                     Toast.makeText(getActivity(), "YUMMY ! Successfully updated your food", Toast.LENGTH_LONG).show();
 
                     // go back to homePage
