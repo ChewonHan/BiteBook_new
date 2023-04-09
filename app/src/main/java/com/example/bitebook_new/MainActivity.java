@@ -11,6 +11,10 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     BottomNavigationView bottomNavigationView;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    TextView foodNumber, favNumber, userName, userId,logoutText;
+    TextView foodNumber, favNumber, userName, userId, logoutText;
     ImageView logoutIcon, logoutButton;
     ArrayList<Entry> entries = new ArrayList<>();
     Entry entry;
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     entries.add(entry);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w("Error", "loadPost:onCancelled", error.toException());
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 userId = findViewById(R.id.userId);
                 // if the user used google account:
                 GoogleSignInAccount gAccount = GoogleSignIn.getLastSignedInAccount(context);
-                if (gAccount != null){
+                if (gAccount != null) {
                     String gName = gAccount.getDisplayName();
                     userName.setText(gName);
                     String gID = gAccount.getId();
@@ -107,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 foodNumber = findViewById(R.id.foodNumber);
                 favNumber = findViewById(R.id.favNumber);
 
-                foodNumber.setText( "I have eaten " + Integer.toString(entries.size()) + " different foods");
+                foodNumber.setText("I have eaten " + Integer.toString(entries.size()) + " different foods");
                 favNumber.setText("I have " + Integer.toString(entry.getFavList().size()) + " favorite foods");
 
                 // TODO figure it out if the logout works in the homePage
@@ -141,45 +146,64 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         auth = FirebaseAuth.getInstance();
         builder = new AlertDialog.Builder(context);
 
-        //button at home page
-        logoutButton.setOnClickListener(new View.OnClickListener() {
 
+        GoogleSignInOptions gOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        GoogleSignInClient gClient = GoogleSignIn.getClient(this, gOptions);
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                auth.signOut();
-                finish();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
-
-                // TODO make this works: shows the alert when it is clicked
-
-//                Toast.makeText(MainActivity.this, " Clicked", Toast.LENGTH_LONG).show();
-//
-//
-//                builder.setTitle("Logout");
-//                builder.setMessage("Are you sure want to logout?")
-//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        auth.signOut();
-//                        finish();
-//                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                        Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
-//                    }
-//                })
-//                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        dialogInterface.dismiss();
-//                    }
-//                });
+                gClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        finish();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
+        //button at home page
+//        logoutButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                auth.signOut();
+//                finish();
+//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
+//                
+//                
+//
+//                // TODO make this works: shows the alert when it is clicked
+//
+////                Toast.makeText(MainActivity.this, " Clicked", Toast.LENGTH_LONG).show();
+////
+////
+////                builder.setTitle("Logout");
+////                builder.setMessage("Are you sure want to logout?")
+////                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+////                    @Override
+////                    public void onClick(DialogInterface dialogInterface, int i) {
+////                        auth.signOut();
+////                        finish();
+////                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+////                        Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
+////                    }
+////                })
+////                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+////                    @Override
+////                    public void onClick(DialogInterface dialogInterface, int i) {
+////                        dialogInterface.dismiss();
+////                    }
+////                });
+//            }
+//        });
 
 
         // bottom nav bar
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
 

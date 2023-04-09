@@ -51,37 +51,11 @@ public class FirebaseHelper {
             DatabaseReference myRef = database.getReference(uid + "/entries");
             DatabaseReference newRef = myRef.push();
 
-
-            // saving photos
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//            byte[] pictureData = baos.toByteArray();
-//
-//            FirebaseStorage storage = FirebaseStorage.getInstance();
-//            // Create a storage reference from our app
-//            StorageReference storageRef = storage.getReference();
-//            // Create a child reference
-//            // imagesRef now points to "images"
-//            StorageReference imagesRef = storageRef.child("images");
-//
-//            UploadTask uploadTask = imagesRef.putBytes(pictureData);
-//            uploadTask.addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception exception) {
-//                    // Handle unsuccessful uploads
-//                    System.out.println("asdfasdfasdf u failed noob");
-//                }
-//            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-//                    // ...
-//                }
-//            });
-
             newRef.setValue(entry);
         }
     }
+
+
 
     public static String getCurrentUser(Context context) {
         String uid = null;
@@ -97,11 +71,13 @@ public class FirebaseHelper {
 
                 // UID specific to the provider
                 uid = profile.getUid();
+                System.out.println(uid);
+                return uid;
             }
         } else {
             System.out.println("no user found");
         }
-
+//        System.out.println("this is the return" + uid);
         return uid;
     }
 

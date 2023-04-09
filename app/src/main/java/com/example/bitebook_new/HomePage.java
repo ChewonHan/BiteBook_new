@@ -24,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class HomePage extends Fragment {
     RecyclerView homeRecycler;
@@ -54,6 +56,9 @@ public class HomePage extends Fragment {
                     Entry entry = entrySnapshot.getValue(Entry.class);
                     entries.add(entry);
                 }
+
+                // reverse order
+                Collections.reverse(entries);
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(context);
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

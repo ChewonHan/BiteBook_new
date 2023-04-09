@@ -129,24 +129,24 @@ public class AddPage extends Fragment {
         areaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                cuisine = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                cuisine = null;
-            }
-        });
-
-        cuisineSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 area = adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 area = null;
+            }
+        });
+
+        cuisineSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cuisine = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                cuisine = null;
             }
         });
 
@@ -160,14 +160,14 @@ public class AddPage extends Fragment {
                 // get String input from the element
                 String resName = restaurantName.getText().toString();
                 String menName = menuName.getText().toString();
-                Integer pri = Integer.valueOf(price.getText().toString());
+                float pri = Float.parseFloat(price.getText().toString());
                 float rat = rate.getRating();
                 String fooMemo = foodMemo.getText().toString();
 
                 // check any of necessary inputs are empty/ missing
                 if (resName.isEmpty() ||
                         menName.isEmpty() ||
-                        pri.toString().isEmpty() ||
+                        price.getText().toString().isEmpty() ||
                         rat == 0.0 ||
                         area == null ||
                         cuisine == null) {

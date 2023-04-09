@@ -6,19 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:layout_above="@+id/bottomNavigationView"
+    >
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="100dp"
-        android:layout_marginTop="65dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="60dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>
