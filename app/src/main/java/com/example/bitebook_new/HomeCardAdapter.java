@@ -209,9 +209,8 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                data.remove(position);
+                FirebaseHelper.deleteEntry(view.getContext(), data.get(position).getId());
                 Toast.makeText(content, "Removed completely", Toast.LENGTH_LONG).show();
-                // TODO after deleting, need refresh to show it is deleted
             }
         });
 

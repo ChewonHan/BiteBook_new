@@ -54,6 +54,18 @@ public class FirebaseHelper {
             key = newRef.getKey();
 
             newRef.setValue(entry);
+            // set id
+            newRef.child("id").setValue(newRef.getKey());
+        }
+    }
+
+    public static void deleteEntry(Context context, String id) {
+        String uid = getCurrentUser(context);
+
+        if (uid != null) {
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            DatabaseReference myRef = database.getReference(uid + "/entries/" + id);
+            myRef.removeValue();
         }
     }
 
