@@ -39,7 +39,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:text="Food Name"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -89,19 +89,6 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/bacon" />
 
-<!--            <com.google.android.material.imageview.ShapeableImageView-->
-<!--                android:id="@+id/foodPic"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_below="@+id/line1"-->
-<!--                android:layout_height="150dp"-->
-<!--                android:backgroundTint="#EEF3F7"-->
-<!--                android:layout_marginHorizontal="14dp"-->
-<!--                android:contentDescription="test"-->
-<!--                android:scaleType="centerInside"-->
-<!--                android:layout_centerInParent="true"-->
-<!--                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"-->
-<!--                app:srcCompat="@drawable/macs" />-->
-
             <ImageView
                 android:id="@+id/foodPic"
                 android:layout_width="match_parent"
@@ -137,7 +124,7 @@
                     android:layout_weight="16"
                     android:hint="DD / MM / YYYY"
                     android:text="DD / MM / YYYY"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
@@ -193,7 +180,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:hint="restaurant name"
-                android:textColor="@color/bright_red"
+                android:textColor="@color/bright_grey"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -202,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/resNameCard"
                 android:layout_marginHorizontal="10dp"
-                android:textColor="@color/bright_red">
+                android:textColor="@color/bright_grey">
 
                 <TextView
                     android:id="@+id/price"
@@ -211,7 +198,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:hint="price"
-                    android:textColor="@color/bright_red"
+                    android:textColor="@color/bright_grey"
                     android:textStyle="bold" />
 
                 <TextView
@@ -221,7 +208,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:hint="area"
-                    android:textColor="@color/bright_red"
+                    android:textColor="@color/bright_grey"
                     android:textStyle="bold" />
 
                 <TextView
@@ -231,7 +218,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:hint="cuisine"
-                    android:textColor="@color/bright_red"
+                    android:textColor="@color/bright_grey"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -243,8 +230,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="5dp"
                 android:hint="review"
-                android:textColor="@color/bright_red"
-                android:textStyle="bold" />
+                android:textColor="@color/bright_grey" />
 
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

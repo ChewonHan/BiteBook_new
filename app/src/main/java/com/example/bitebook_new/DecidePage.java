@@ -165,7 +165,6 @@ public class DecidePage extends Fragment {
         Random rand = new Random();
 
         // Generate a random integer between 0 and total number of the Entry object
-        // TODO change the number of entry based on the spinner
         int randomNumber = rand.nextInt(entries.size());
 
         return randomNumber;
