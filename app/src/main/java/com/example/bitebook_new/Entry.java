@@ -8,7 +8,7 @@ import java.util.Calendar;
 public class Entry {
     private String resName;
     private String menName;
-    private Integer price;
+    private float price;
     private String area;
     private float rating;
     private String review;
@@ -25,7 +25,7 @@ public class Entry {
     }
 
 
-    public Entry(String resName, String menName, Integer price, String area, float rating, String review, String cuisine, String image) {
+    public Entry(String resName, String menName, float price, String area, float rating, String review, String cuisine, String image) {
         this.resName = resName;
         this.menName = menName;
         this.price = price;
@@ -54,7 +54,7 @@ public class Entry {
         return date;
     }
 
-    public Integer getPrice() {
+    public float getPrice() {
         return price;
     }
 

@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class AboutUsPage extends Fragment {
+public class EditPage extends Fragment {
 
-    public AboutUsPage() {
+    public EditPage() {
         // Required empty public constructor
     }
 
@@ -19,6 +19,6 @@ public class AboutUsPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about_us_page, container, false);
+        return inflater.inflate(R.layout.fragment_edit_page, container, false);
     }
 }

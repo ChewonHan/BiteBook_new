@@ -12,9 +12,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -29,10 +36,14 @@ public class DecidePage extends Fragment {
     Spinner areaSpinner;
     Spinner cuisineSpinner;
     Spinner priceSpinner;
-    ArrayList<Entry> entries;
     Button generateButton;
+    String cuisine;
+    String price;
+    ArrayList<Entry> entries = new ArrayList<>();
+    ArrayList<Entry> filteredEntries = new ArrayList<>();
 
-    public DecidePage(){
+
+    public DecidePage() {
         // require a empty public constructor
     }
 
@@ -44,6 +55,7 @@ public class DecidePage extends Fragment {
         areaSpinner = view.findViewById(R.id.areaSpinner);
         cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
         priceSpinner = view.findViewById(R.id.priceSpinner);
+
 
         // set up the spinners
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
@@ -61,27 +73,57 @@ public class DecidePage extends Fragment {
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         priceSpinner.setAdapter(adapter3);
 
-        // TODO make the entry here share with the addPage entry result
-        entries = new ArrayList<>();
-
-        Entry item1 = new Entry("Resname", "filet", 12, "east", 2, "This is amazing", "Western", "url");
-        Entry item2 = new Entry("item 2", "filet", 12, "east", 2, "This is amazing", "Western", "url");
-
-        entries.add(item1);
-        entries.add(item2);
 
         decideRecycler = (RecyclerView) view.findViewById(R.id.decideRecycler);
-
-        Log.i("asdf","ASDFASDFASDFASFD");
-
         Context context = container.getContext();
 
-        LinearLayoutManager layoutManager =new LinearLayoutManager(context);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        Log.i("asdf", String.valueOf(layoutManager));
-        decideRecycler.setLayoutManager(layoutManager);
-        adapter = new DecideCardAdapter(context, entries);
-        decideRecycler.setAdapter(adapter);
+
+        // getting data from the spinners
+        cuisineSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cuisine = adapterView.getItemAtPosition(i).toString();
+                updateDecideCards();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                cuisine = null;
+            }
+        });
+
+        priceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                updateDecideCards();
+                price = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                price = null;
+            }
+        });
+
+
+        // first we want to get the data from firebase
+        String uid = FirebaseHelper.getCurrentUser(getContext());
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference myRef = database.getReference(uid + "/entries");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot entrySnapshot : dataSnapshot.getChildren()) {
+                    Entry entry = entrySnapshot.getValue(Entry.class);
+                    entries.add(entry);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("Error", "loadPost:onCancelled", error.toException());
+            }
+        });
 
         generateButton = view.findViewById(R.id.generateButton);
 
@@ -93,6 +135,29 @@ public class DecidePage extends Fragment {
         });
 
         return view;
+    }
+
+    public void updateDecideCards() {
+        System.out.println("cuisine: " + cuisine);
+        System.out.println("price: " + price);
+        filteredEntries.clear();
+
+        for (Entry e : entries) {
+            if (e.getCuisine().equals(cuisine)) {
+                filteredEntries.add(e);
+            }
+        }
+        showCards();
+        System.out.println(filteredEntries);
+    }
+
+    public void showCards() {
+        Context context = getContext();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        decideRecycler.setLayoutManager(layoutManager);
+        adapter = new DecideCardAdapter(context, filteredEntries);
+        decideRecycler.setAdapter(adapter);
     }
 
     public int RandomNumberGenerator() {
