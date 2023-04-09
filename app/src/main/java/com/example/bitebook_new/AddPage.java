@@ -28,12 +28,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.bitebook_new.adapter.PlaceAutoSuggestAdapter;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.FetchPlaceResponse;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -49,6 +57,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,7 +66,10 @@ public class AddPage extends Fragment {
     // use the elements created to get the user inputs and save it to variables
     // initialize elements
     ArrayList<Entry> entries;
-    EditText restaurantName;
+    AutoCompleteTextView restaurantName;
+    PlaceAutoSuggestAdapter adapter;
+    TextView responseView;
+    PlacesClient placesClient;
     EditText menuName;
     EditText price;
     RatingBar rate;
@@ -86,6 +98,7 @@ public class AddPage extends Fragment {
 
         // elements' ids with the elements in fragment
         restaurantName = view.findViewById(R.id.restaurantName);
+        responseView = view.findViewById(R.id.response);
         menuName = view.findViewById(R.id.menuName);
         price = view.findViewById(R.id.price);
         rate = view.findViewById(R.id.ratingBar);
@@ -96,6 +109,22 @@ public class AddPage extends Fragment {
         areaSpinner = view.findViewById(R.id.areaSpinner);
         cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
         addPicDes = view.findViewById(R.id.addPicDes);
+
+        //set up the autofill response
+        String apiKey = BuildConfig.KEY;
+        System.out.println(apiKey);
+        if (apiKey.isEmpty()) {
+            responseView.setText("Error");
+            return null;
+        }
+
+        // Setup Places Client
+        if (!Places.isInitialized()) {
+            Places.initialize(getContext(), apiKey);
+        }
+
+        placesClient = Places.createClient(getContext());
+        initPlaceAutoSuggestAdapter();
 
         // set up the spinners
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
@@ -151,6 +180,7 @@ public class AddPage extends Fragment {
         });
 
 
+
         // when the upload button is clicked the string inputs in each element will be saved in to specific var
         upload.setOnClickListener(new View.OnClickListener() {
 
@@ -203,6 +233,60 @@ public class AddPage extends Fragment {
 
         return view;
     }
+
+
+    //this method is called when the user inputs text into the AutoComplete Text field
+    private void initPlaceAutoSuggestAdapter(){
+        restaurantName.setThreshold(1);
+        restaurantName.setOnItemClickListener(autocompleteClickListener);
+        adapter = new PlaceAutoSuggestAdapter(getContext(), placesClient);
+        restaurantName.setAdapter(adapter);
+    }
+
+    //this method is the on click listener for the autofill text field
+    private final AdapterView.OnItemClickListener autocompleteClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            try {
+                final AutocompletePrediction item = adapter.getItem(i);
+                String placeID = null;
+                if (item != null) {
+                    placeID = item.getPlaceId();
+                }
+
+//                To specify which data types to return, pass an array of Place.Fields in your FetchPlaceRequest
+//                Use only those fields which are required.
+
+                List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS
+                        , Place.Field.LAT_LNG);
+
+                FetchPlaceRequest request = null;
+                if (placeID != null) {
+                    request = FetchPlaceRequest.builder(placeID, placeFields)
+                            .build();
+                }
+
+                if (request != null) {
+                    placesClient.fetchPlace(request).addOnSuccessListener(new OnSuccessListener<FetchPlaceResponse>() {
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onSuccess(FetchPlaceResponse task) {
+                            responseView.setText(task.getPlace().getName() + "\n" + task.getPlace().getAddress());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                            responseView.setText(e.getMessage());
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     // This method is called when the user selects an image from their gallery
     @Override
