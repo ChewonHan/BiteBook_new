@@ -268,4 +268,5 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
         }
     }
+
 }
