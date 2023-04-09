@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Entry {
+    private String id;
+
     private String resName;
     private String menName;
     private float price;
@@ -26,6 +28,19 @@ public class Entry {
 
 
     public Entry(String resName, String menName, float price, String area, float rating, String review, String cuisine, String image) {
+        this.resName = resName;
+        this.menName = menName;
+        this.price = price;
+        this.area = area;
+        this.rating = rating;
+        this.review = review;
+        this.cuisine = cuisine;
+        this.image = image;
+        this.date = setDate();
+    }
+
+    public Entry(String id, String resName, String menName, float price, String area, float rating, String review, String cuisine, String image) {
+        this.id = id;
         this.resName = resName;
         this.menName = menName;
         this.price = price;
@@ -60,6 +75,9 @@ public class Entry {
 
     public String getMenName() {
         return menName;
+    }
+    public String getId() {
+        return id;
     }
 
     public String getArea() {
@@ -101,6 +119,6 @@ public class Entry {
     @NonNull
     @Override
     public String toString() {
-        return ("asdfsa");
+        return (menName);
     }
 }
