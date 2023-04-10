@@ -10,16 +10,14 @@ public class TODO_list {
 
     // TODO decidePage: add Spinner for the favorite list -> maybe change with the price
 
-    // TODO editPage: figure how to get not null for id
+    // TODO editPage: add auto complete
+    // TODO editPage: upload image url to firebase after update too
 
     // TODO addPage: layout after getting the place
     // TODO addPage: if the picture height is too big, then it becomes landscape
 
-    // TODO mapPage:
-
     // TODO slideMenu: shows user name if we use not google account to log in
     // TODO slideMenu: think about userID (userNumber)
-
 
     // TODO change the font of entire style
     // TODO check the layout (margins) for other decides (other sizes of screens)

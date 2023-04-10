@@ -141,26 +141,21 @@ public class EditPage extends Fragment {
         // TODO doesn't work -> getting the index, although they are the same they returns false
         // get the index of the area to set the area in the spinner
         String[] areaList = getResources().getStringArray(R.array.areaSpinner);
-
-        System.out.println("area " + data.getArea());
         for (int i =0; i < areaList.length; i ++ ){
             if (areaList[i].equals(data.getArea())){
                  areaIdx = i;
                  break;
             }
         }
-        System.out.println(areaIdx);
 
         // get the index of the cuisine to set the cuisine in the spinner
         String[] cuisineList = getResources().getStringArray(R.array.cuisineSpinner);
-        System.out.println("cuisine " + data.getCuisine());
         for (int i =0; i < cuisineList.length; i ++ ){
             if (cuisineList[i].equals(data.getCuisine())){
                 cuisineIdx = i;
                 break;
             }
         }
-        System.out.println(cuisineIdx);
 
         areaSpinner.setSelection(areaIdx);
         cuisineSpinner.setSelection(cuisineIdx);
