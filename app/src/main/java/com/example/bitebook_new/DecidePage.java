@@ -11,8 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,20 +41,20 @@ public class DecidePage extends Fragment {
     Spinner priceSpinner;
     Button generateButton;
     String cuisine;
-    String price;
+    String area;
     ArrayList<Entry> entries = new ArrayList<>();
     ArrayList<Entry> filteredEntries = new ArrayList<>();
+    int menuNumber;
+    boolean isClicked = false;
 
 
-    public DecidePage() {
-        // require a empty public constructor
-    }
+    public DecidePage() {  }
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_decide_page, container, false);
-
+        entries.clear();
         areaSpinner = view.findViewById(R.id.areaSpinner);
         cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
         priceSpinner = view.findViewById(R.id.priceSpinner);
@@ -92,16 +95,16 @@ public class DecidePage extends Fragment {
             }
         });
 
-        priceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        areaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                area = adapterView.getItemAtPosition(i).toString();
                 updateDecideCards();
-                price = adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                price = null;
+                area = null;
             }
         });
 
@@ -130,7 +133,15 @@ public class DecidePage extends Fragment {
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int menuNumber = RandomNumberGenerator();
+
+                menuNumber = RandomNumberGenerator();
+                System.out.println(menuNumber);
+                isClicked = true;
+
+                showCards();
+
+//                CardView cardView = decideRecycler.findViewHolderForAdapterPosition(menuNumber).itemView.findViewById(R.id.choice);
+//                cardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.lettuce));
             }
         });
 
@@ -141,20 +152,33 @@ public class DecidePage extends Fragment {
         filteredEntries.clear();
 
         for (Entry e : entries) {
-            if (e.getCuisine().equals(cuisine)) {
-                filteredEntries.add(e);
+            if (e.getCuisine().equals(cuisine) && (area.equals("Area") || area.equals(null))) {
+                if(!filteredEntries.contains(e)){
+                    filteredEntries.add(e);
+                }
+            }
+            if (e.getArea().equals(area) && (cuisine.equals("Cuisine") || cuisine.equals(null))){
+                if(!filteredEntries.contains(e)){
+                    filteredEntries.add(e);
+                }
+            }
+            if(e.getArea().equals(area) && e.getCuisine().equals(cuisine)){
+                if(!filteredEntries.contains(e)){
+                    filteredEntries.add(e);
+                }
             }
         }
         showCards();
     }
 
     public void showCards() {
-        System.out.println(filteredEntries.size());
         Context context = getContext();
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+
         decideRecycler.setLayoutManager(layoutManager);
-        adapter = new DecideCardAdapter(context, filteredEntries);
+        adapter = new DecideCardAdapter(context, filteredEntries, menuNumber, isClicked);
         decideRecycler.setAdapter(adapter);
     }
 
@@ -163,8 +187,8 @@ public class DecidePage extends Fragment {
         Random rand = new Random();
 
         // Generate a random integer between 0 and total number of the Entry object
-        int randomNumber = rand.nextInt(entries.size());
-
+        int randomNumber = rand.nextInt(filteredEntries.size() );
+        Toast.makeText(getActivity(), "Chose the menu for you !", Toast.LENGTH_LONG).show();
         return randomNumber;
     }
 
