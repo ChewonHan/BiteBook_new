@@ -245,7 +245,6 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             foodName = itemView.findViewById(R.id.foodName);
             description = itemView.findViewById(R.id.review);
             image = itemView.findViewById(R.id.foodPic);
-            line2 = itemView.findViewById(R.id.line2);
             moreButton = itemView.findViewById(R.id.moreIcon);
             favButton = itemView.findViewById(R.id.favIcon);
             date = itemView.findViewById(R.id.date);
