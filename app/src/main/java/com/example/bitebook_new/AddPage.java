@@ -271,7 +271,6 @@ public class AddPage extends Fragment {
                         @SuppressLint("SetTextI18n")
                         @Override
                         public void onSuccess(FetchPlaceResponse task) {
-                            restaurantName.setText(task.getPlace().getName());
 //                            responseView.setText(task.getPlace().getName() + "\n" + task.getPlace().getAddress());
                             latLng = task.getPlace().getLatLng();
                         }
@@ -306,7 +305,7 @@ public class AddPage extends Fragment {
                 // Save the Bitmap to the MyObject instance
 //                Entry.setFoodImage(bitmap);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
                 byte[] pictureData = baos.toByteArray();
 
                 FirebaseStorage storage = FirebaseStorage.getInstance();

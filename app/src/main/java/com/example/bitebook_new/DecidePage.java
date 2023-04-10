@@ -138,8 +138,6 @@ public class DecidePage extends Fragment {
     }
 
     public void updateDecideCards() {
-        System.out.println("cuisine: " + cuisine);
-        System.out.println("price: " + price);
         filteredEntries.clear();
 
         for (Entry e : entries) {
@@ -148,10 +146,10 @@ public class DecidePage extends Fragment {
             }
         }
         showCards();
-        System.out.println(filteredEntries);
     }
 
     public void showCards() {
+        System.out.println(filteredEntries.size());
         Context context = getContext();
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
