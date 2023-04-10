@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -75,7 +76,7 @@ public class AddPage extends Fragment {
     EditText price;
     RatingBar rate;
     ImageView pictures;
-    Button addPictures;
+    TextView addPictures;
     EditText foodMemo;
     Button upload;
     Spinner areaSpinner;
@@ -97,7 +98,6 @@ public class AddPage extends Fragment {
 
         // elements' ids with the elements in fragment
         restaurantName = view.findViewById(R.id.restaurantName);
-        responseView = view.findViewById(R.id.response);
         menuName = view.findViewById(R.id.menuName);
         price = view.findViewById(R.id.price);
         rate = view.findViewById(R.id.ratingBar);
@@ -148,7 +148,6 @@ public class AddPage extends Fragment {
                 pictures.getLayoutParams().height = sizeInPixels;
 
                 startActivityForResult(intent, 1);
-                addPicDes.setText("");
             }
         });
 
@@ -189,7 +188,7 @@ public class AddPage extends Fragment {
                 // get String input from the element
                 String resName = restaurantName.getText().toString();
                 String menName = menuName.getText().toString();
-                float pri = Float.parseFloat(price.getText().toString());
+                String pri = price.getText().toString();
                 float rat = rate.getRating();
                 String fooMemo = foodMemo.getText().toString();
 
@@ -210,7 +209,7 @@ public class AddPage extends Fragment {
 
                     // save the user inputs as an object called Entry
 
-                    Entry entry = new Entry(resName, menName, pri, area, rat, fooMemo, cuisine, image_url, latLng);
+                    Entry entry = new Entry(resName, menName, Float.parseFloat(pri), area, rat, fooMemo, cuisine, image_url, latLng);
                     FirebaseHelper.createEntry(getContext(), entry, bitmap);
 
                     // After uploading the food, show the message through the toast
@@ -302,9 +301,23 @@ public class AddPage extends Fragment {
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                 // Set the Bitmap to the ImageView
                 pictures.setImageBitmap(bitmap);
+//                pictures.setLayoutParams(
+//                        new ViewGroup.LayoutParams(
+//                                // or ViewGroup.LayoutParams.WRAP_CONTENT
+//                                ViewGroup.LayoutParams.MATCH_PARENT,
+//                                // or ViewGroup.LayoutParams.WRAP_CONTENT,
+//                                ViewGroup.LayoutParams.MATCH_PARENT ) );
+                pictures.getLayoutParams().height = 600;
+                addPictures.getLayoutParams().height = 0;
+
+//                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(same,500);
+                pictures.requestLayout();
+                addPictures.getLayoutParams().height = 0;
+
                 // Save the Bitmap to the MyObject instance
 //                Entry.setFoodImage(bitmap);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
                 byte[] pictureData = baos.toByteArray();
 

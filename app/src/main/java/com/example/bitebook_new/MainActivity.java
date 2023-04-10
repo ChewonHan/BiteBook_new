@@ -100,12 +100,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 userId = findViewById(R.id.userId);
                 // if the user used google account:
                 GoogleSignInAccount gAccount = GoogleSignIn.getLastSignedInAccount(context);
-                if (gAccount != null) {
-                    String gName = gAccount.getDisplayName();
-                    userName.setText(gName);
-                    String gID = gAccount.getId();
-                    userId.setText("@" + gID);
-                }
+                String username = gAccount != null ? gAccount.getDisplayName() : FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                String email = gAccount != null ? gAccount.getEmail() : FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                userName.setText(username);
+                userId.setText(email);
 
 
                 // show the number of food tried and
