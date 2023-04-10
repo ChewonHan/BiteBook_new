@@ -42,10 +42,12 @@ public class FirebaseHelper {
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
             DatabaseReference myRef = database.getReference(uid + "/entries");
             DatabaseReference newRef = myRef.push();
-
             newRef.setValue(entry);
             // set id
             newRef.child("id").setValue(newRef.getKey());
+            // remove latlng
+            newRef.child("latlng").removeValue();
+
         }
     }
 

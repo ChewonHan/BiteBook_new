@@ -26,7 +26,6 @@ public class Entry {
     private int mDay;
     private double lat;
     private double lng;
-    private LatLng latlng;
 
     public Entry() {
     }
@@ -42,7 +41,6 @@ public class Entry {
         this.cuisine = cuisine;
         this.image = image;
         this.date = setDate();
-        this.latlng = latLng;
         this.lat = latLng.latitude;
         this.lng = latLng.longitude;
     }
@@ -58,7 +56,6 @@ public class Entry {
         this.cuisine = cuisine;
         this.image = image;
         this.date = setDate();
-        this.latlng = latLng;
         this.lat = latLng.latitude;
         this.lng = latLng.longitude;
     }
@@ -121,6 +118,10 @@ public class Entry {
 
     public String getImage() {
         return image;
+    }
+
+    public LatLng getLatlng() {
+        return new LatLng(lat, lng);
     }
 
     public void setResName(String resName) {

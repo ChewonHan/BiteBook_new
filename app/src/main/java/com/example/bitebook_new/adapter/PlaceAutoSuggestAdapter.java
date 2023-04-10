@@ -119,7 +119,7 @@ public class PlaceAutoSuggestAdapter extends ArrayAdapter<AutocompletePrediction
                 // when clicked.
                 System.out.println("converting result to string!");
                 if (resultValue instanceof AutocompletePrediction) {
-                    return ((AutocompletePrediction) resultValue).getFullText(null);
+                    return ((AutocompletePrediction) resultValue).getPrimaryText(null);
                 } else {
                     return super.convertResultToString(resultValue);
                 }
