@@ -87,7 +87,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         // shows image depends on the input
         if (entry.getImage() == null){
             holder.image.setVisibility(View.GONE);
-            holder.line2.setVisibility(View.GONE);
+//            holder.line2.setVisibility(View.GONE);
         }
         else{
             Picasso
@@ -142,32 +142,6 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
         // set the date of upload
         holder.date.setText(entry.getDate());
-
-        // change the fav_icon depends on the user's click
-        holder.favButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isClicked = !isClicked;
-
-                if (isClicked){
-                    Toast.makeText(content, "Added to the favorite list", Toast.LENGTH_LONG).show();
-                    holder.favButton.setImageResource(R.drawable.fav_icon_clicked);
-                    // if the favList doesn't have current food & if the button is clicked,
-                    // add it to the favList
-
-                    if (!Entry.getFavList().contains(foodName)){
-                        Entry.setFavList(foodName);
-                    }
-                }
-                else{
-                    Toast.makeText(content, "Removed from the favorite list", Toast.LENGTH_LONG).show();
-                    holder.favButton.setImageResource(R.drawable.fav_icon);
-                    if (Entry.getFavList().contains(foodName)){
-                        Entry.removeFavList(foodName);
-                    }
-                }
-            }
-        });
 
         // collapse/ expand the card depends on the user's click
         holder.moreButton.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +211,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView foodName, description, resNameCard, price, area, cuisine, date;
-        ImageView image, star1, star2, star3, star4, star5, moreButton, favButton, deleteButton, editButton;
+        ImageView image, star1, star2, star3, star4, star5, moreButton, deleteButton, editButton;
         View line2, line3;
 
         public ViewHolder(@NonNull View itemView) {
@@ -246,7 +220,6 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             description = itemView.findViewById(R.id.review);
             image = itemView.findViewById(R.id.foodPic);
             moreButton = itemView.findViewById(R.id.moreIcon);
-            favButton = itemView.findViewById(R.id.favIcon);
             date = itemView.findViewById(R.id.date);
             deleteButton = itemView.findViewById(R.id.deleteIcon);
             editButton = itemView.findViewById(R.id.editIcon);

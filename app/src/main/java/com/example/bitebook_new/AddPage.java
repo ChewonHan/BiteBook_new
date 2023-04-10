@@ -141,10 +141,6 @@ public class AddPage extends Fragment {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
 
-                // set the height of the picture
-                int sizeInPixels = getResources().getDimensionPixelSize(R.dimen.picture_height);
-                pictures.getLayoutParams().height = sizeInPixels;
-
                 startActivityForResult(intent, 1);
             }
         });
@@ -301,12 +297,7 @@ public class AddPage extends Fragment {
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                 // Set the Bitmap to the ImageView
                 pictures.setImageBitmap(bitmap);
-//                pictures.setLayoutParams(
-//                        new ViewGroup.LayoutParams(
-//                                // or ViewGroup.LayoutParams.WRAP_CONTENT
-//                                ViewGroup.LayoutParams.MATCH_PARENT,
-//                                // or ViewGroup.LayoutParams.WRAP_CONTENT,
-//                                ViewGroup.LayoutParams.MATCH_PARENT ) );
+
                 pictures.getLayoutParams().height = 600;
                 addPictures.getLayoutParams().height = 0;
 

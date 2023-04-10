@@ -105,8 +105,10 @@ public class EditPage extends Fragment {
         foodMemo.setText(data.getReview());
 
         // set image depends on the current input
-        if (data.getImage() == null){ }
-        else{
+        if (data.getImage() != null){
+            image_url = data.getImage();
+            pictures.getLayoutParams().height = 600;
+            addPictures.getLayoutParams().height = 0;
             Picasso.get().load(data.getImage()).into(pictures);
         }
 
@@ -123,15 +125,17 @@ public class EditPage extends Fragment {
         addPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                if (data.getImage() == null){
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
 
-                // set the height of the picture
-                int sizeInPixels = getResources().getDimensionPixelSize(R.dimen.picture_height);
-                pictures.getLayoutParams().height = sizeInPixels;
+                    // set the height of the picture
+                    pictures.getLayoutParams().height = 600;
+                    addPictures.getLayoutParams().height = 0;
 
-                startActivityForResult(intent, 1);
+                    startActivityForResult(intent, 1);
+                }
             }
         });
 
