@@ -119,6 +119,7 @@ public class EditPage extends Fragment {
         rate.setRating(data.getRating());
         foodMemo.setText(data.getReview());
 
+
         // set image depends on the current input
         if (data.getImage() != null){
             image_url = data.getImage();
@@ -225,6 +226,7 @@ public class EditPage extends Fragment {
                 float rat = rate.getRating();
                 String fooMemo = foodMemo.getText().toString();
                 String id = data.getId();
+                latLng = data.getLatlng();
 
                 // check any of necessary inputs are empty/ missing
                 if (resName.isEmpty() ||

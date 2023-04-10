@@ -7,31 +7,30 @@
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinners">
     <Spinner
         android:id="@+id/areaSpinner"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="65dp"
         android:textColor="@color/bacon"/>
 
     <Spinner
         android:id="@+id/cuisineSpinner"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginHorizontal="20dp"
+        android:layout_weight="1"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="65dp"
         android:textColor="@color/bacon"/>
 
-    <Spinner
-        android:id="@+id/priceSpinner"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="280dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="65dp"
-        android:textColor="@color/bacon"/>
+    </LinearLayout>
 
     <View
         android:id="@+id/line"
@@ -41,15 +40,32 @@
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_below="@+id/priceSpinner"/>
+        android:layout_below="@+id/spinners"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttons"
+        android:layout_below="@+id/line"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center">
+
+    <Button
+        android:id="@+id/favButton"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="Favorite Food"/>
 
     <Button
         android:id="@+id/generateButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/line"
-        android:layout_centerHorizontal="true"
-        android:text="Decide"/>
+        android:text="Decide Food"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/decideRecycler"
@@ -57,7 +73,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="100dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/generateButton"
+        android:layout_below="@+id/buttons"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

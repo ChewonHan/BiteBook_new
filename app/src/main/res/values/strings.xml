@@ -38,13 +38,5 @@
         <item>German</item>
     </string-array>
 
-    <string-array name="priceSpinner">
-        <item>Cheap</item>
-        <item>Budget</item>
-        <item>Affordable</item>
-        <item>Pricey</item>
-        <item>Special</item>
-    </string-array>
-
 
 </resources>

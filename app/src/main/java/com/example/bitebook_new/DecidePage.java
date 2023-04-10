@@ -38,8 +38,7 @@ public class DecidePage extends Fragment {
     RecyclerView.Adapter adapter;
     Spinner areaSpinner;
     Spinner cuisineSpinner;
-    Spinner priceSpinner;
-    Button generateButton;
+    Button generateButton, favButton;
     String cuisine;
     String area;
     ArrayList<Entry> entries = new ArrayList<>();
@@ -57,7 +56,8 @@ public class DecidePage extends Fragment {
         entries.clear();
         areaSpinner = view.findViewById(R.id.areaSpinner);
         cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
-        priceSpinner = view.findViewById(R.id.priceSpinner);
+        favButton = view.findViewById(R.id.favButton);
+
 
 
         // set up the spinners
@@ -71,12 +71,6 @@ public class DecidePage extends Fragment {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cuisineSpinner.setAdapter(adapter2);
 
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(
-                getContext(), R.array.priceSpinner, android.R.layout.simple_spinner_item);
-        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        priceSpinner.setAdapter(adapter3);
-
-
         decideRecycler = (RecyclerView) view.findViewById(R.id.decideRecycler);
         Context context = container.getContext();
 
@@ -85,6 +79,7 @@ public class DecidePage extends Fragment {
         cuisineSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                isClicked = false;
                 cuisine = adapterView.getItemAtPosition(i).toString();
                 updateDecideCards();
             }
@@ -98,6 +93,7 @@ public class DecidePage extends Fragment {
         areaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                isClicked = false;
                 area = adapterView.getItemAtPosition(i).toString();
                 updateDecideCards();
             }
@@ -145,6 +141,16 @@ public class DecidePage extends Fragment {
             }
         });
 
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isClicked = false;
+                filteredEntries.clear();
+                filteredEntries = favFood();
+                showCards();
+            }
+        });
+
         return view;
     }
 
@@ -182,13 +188,30 @@ public class DecidePage extends Fragment {
         decideRecycler.setAdapter(adapter);
     }
 
+    ArrayList<Entry> favFoods = new ArrayList<>();
+
+    public ArrayList<Entry> favFood(){
+
+        for (Entry e : entries){
+            if (e.getRating() == 5.0){
+                favFoods.add(e);
+            }
+        }
+        return favFoods;
+    }
+
     public int RandomNumberGenerator() {
         // Create a new instance of the Random class
         Random rand = new Random();
-
+        int randomNumber;
         // Generate a random integer between 0 and total number of the Entry object
-        int randomNumber = rand.nextInt(filteredEntries.size() );
-        Toast.makeText(getActivity(), "Chose the menu for you !", Toast.LENGTH_LONG).show();
+        if (filteredEntries.size() < 1){
+            randomNumber = 1;
+            Toast.makeText(getActivity(), "You don't have enough menus to choose!", Toast.LENGTH_LONG).show();
+        }else{
+            randomNumber = rand.nextInt(filteredEntries.size() );
+            Toast.makeText(getActivity(), "Chose the menu for you !", Toast.LENGTH_LONG).show();
+        }
         return randomNumber;
     }
 
