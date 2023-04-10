@@ -54,7 +54,7 @@
             android:id="@+id/favNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="I have n favorite foods"
+            android:text="n menus have received 5 stars"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:layout_marginBottom="70dp"/>

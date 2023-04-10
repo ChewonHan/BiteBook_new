@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                entries.clear();
 
                 for (DataSnapshot entrySnapshot : snapshot.getChildren()) {
                     entry = entrySnapshot.getValue(Entry.class);
@@ -112,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 favNumber = findViewById(R.id.favNumber);
 
                 foodNumber.setText("I have eaten " + Integer.toString(entries.size()) + " different foods");
-                favNumber.setText("I have " + Integer.toString(entry.getFavList().size()) + " favorite foods");
+                favNumber.setText(favFoodNum() + "  menus have received 5 stars");
+
 
             }
         });
@@ -136,33 +138,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
                     }
                 });
-
-
-/*             //code for making an alert but doesn't work
-                builder.setTitle("Logout");
-                builder.setMessage("Are you sure want to logout?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        gClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                finish();
-                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                                Toast.makeText(MainActivity.this, "Logout successfully", Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-                    }
-                })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }); */
             }
         });
 
@@ -201,6 +176,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
         }
         return false;
+    }
+
+    public int favFoodNum(){
+        ArrayList<Entry> favFoods = new ArrayList<>();
+        for (Entry e : entries){
+            if (e.getRating() == 5.0){
+                favFoods.add(e);
+            }
+        }
+        return favFoods.size();
     }
 
 

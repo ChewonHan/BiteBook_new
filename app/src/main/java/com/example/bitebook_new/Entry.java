@@ -18,8 +18,6 @@ public class Entry {
     private String review;
     private String cuisine;
     private String image;
-    private static ArrayList<String> favList = new ArrayList<>();
-
     private String date;
     private int mYear;
     private String mMonth;
@@ -154,18 +152,6 @@ public class Entry {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public static void setFavList(String food) {
-        Entry.favList.add(food);
-    }
-
-    public static void removeFavList(String food) {
-        Entry.favList.remove(food);
-    }
-
-    public static ArrayList<String> getFavList() {
-        return favList;
     }
 
     @NonNull
