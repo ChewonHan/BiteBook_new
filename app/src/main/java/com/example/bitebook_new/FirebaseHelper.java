@@ -67,13 +67,11 @@ public class FirebaseHelper {
         }
     }
 
-    // TODO make a function for updating changes
     public static void updateEntry(Context context, Entry newEntry, Bitmap bitmap, String id){
         String uid = getCurrentUser(context);
 
         if (uid != null) {
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
-            // TODO find the key to update
             DatabaseReference myRef = database.getReference(uid + "/entries/" + id);
 
             myRef.setValue(newEntry);

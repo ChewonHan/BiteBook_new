@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     HomePage homePage = new HomePage();
     AddPage addPage = new AddPage();
     DecidePage decidePage = new DecidePage();
+    MapPage mapPage = new MapPage();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -196,6 +197,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, decidePage).commit();
                 return true;
 
+            case R.id.map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, mapPage).commit();
+                return true;
         }
         return false;
     }

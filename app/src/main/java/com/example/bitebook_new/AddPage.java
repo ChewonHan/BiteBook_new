@@ -85,9 +85,6 @@ public class AddPage extends Fragment {
     TextView addPicDes;
     String image_url = null;
 
-
-    // TODO <ADDITIONAL> change the app icon image
-
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
