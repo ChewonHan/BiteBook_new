@@ -16,6 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.widget.AutoCompleteTextView;
+
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,9 +33,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bitebook_new.adapter.PlaceAutoSuggestAdapter;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.FetchPlaceResponse;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +56,7 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,7 +64,7 @@ import java.util.List;
 public class EditPage extends Fragment {
 
     ArrayList<Entry> entries;
-    EditText restaurantName, menuName, price, foodMemo;
+    EditText menuName, price, foodMemo;
     TextView cancel, addPictures;
     RatingBar rate;
     ImageView pictures;
@@ -67,7 +77,12 @@ public class EditPage extends Fragment {
     private Entry data;
     private int areaIdx;
     int cuisineIdx;
-    LatLng latLng = new LatLng(0.2, 0.3);
+    LatLng latLng;
+
+    TextView responseView;
+    PlacesClient placesClient;
+    PlaceAutoSuggestAdapter adapter;
+    AutoCompleteTextView restaurantName;
 
 
     public EditPage(Context content, Entry data) {
@@ -111,6 +126,21 @@ public class EditPage extends Fragment {
             addPictures.getLayoutParams().height = 0;
             Picasso.get().load(data.getImage()).into(pictures);
         }
+
+        String apiKey = BuildConfig.KEY;
+        System.out.println(apiKey);
+        if (apiKey.isEmpty()) {
+            responseView.setText("Error");
+            return null;
+        }
+
+        // Setup Places Client
+        if (!Places.isInitialized()) {
+            Places.initialize(getContext(), apiKey);
+        }
+
+        placesClient = Places.createClient(getContext());
+        initPlaceAutoSuggestAdapter();
 
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
                 getContext(), R.array.areaSpinner, android.R.layout.simple_spinner_item);
@@ -244,6 +274,60 @@ public class EditPage extends Fragment {
 
         return view;
     }
+
+    //this method is called when the user inputs text into the AutoComplete Text field
+    private void initPlaceAutoSuggestAdapter(){
+        restaurantName.setThreshold(1);
+        restaurantName.setOnItemClickListener(autocompleteClickListener);
+        adapter = new PlaceAutoSuggestAdapter(getContext(), placesClient);
+        restaurantName.setAdapter(adapter);
+    }
+
+    //this method is the on click listener for the autofill text field
+    private final AdapterView.OnItemClickListener autocompleteClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            try {
+                final AutocompletePrediction item = adapter.getItem(i);
+                String placeID = null;
+                if (item != null) {
+                    placeID = item.getPlaceId();
+                }
+
+//                To specify which data types to return, pass an array of Place.Fields in your FetchPlaceRequest
+//                Use only those fields which are required.
+
+                List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS
+                        , Place.Field.LAT_LNG);
+
+                FetchPlaceRequest request = null;
+                if (placeID != null) {
+                    request = FetchPlaceRequest.builder(placeID, placeFields)
+                            .build();
+                }
+
+                if (request != null) {
+                    placesClient.fetchPlace(request).addOnSuccessListener(new OnSuccessListener<FetchPlaceResponse>() {
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onSuccess(FetchPlaceResponse task) {
+//                            responseView.setText(task.getPlace().getName() + "\n" + task.getPlace().getAddress());
+                            latLng = task.getPlace().getLatLng();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                            responseView.setText(e.getMessage());
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
 
     @Override
