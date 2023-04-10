@@ -68,7 +68,7 @@ public class EditPage extends Fragment {
     private Entry data;
     private int areaIdx;
     int cuisineIdx;
-    List<Double> latlng;
+    LatLng latLng = new LatLng(0.2, 0.3);
 
 
     public EditPage(Context content, Entry data) {
@@ -217,7 +217,7 @@ public class EditPage extends Fragment {
                     }
 
                     // change the data in Entry
-                    Entry entry = new Entry(id, resName, menName, pri, area, rat, fooMemo, cuisine, image_url);
+                    Entry entry = new Entry(id, resName, menName, pri, area, rat, fooMemo, cuisine, image_url, latLng);
                     FirebaseHelper.updateEntry(content, entry, bitmap);
                     Toast.makeText(getActivity(), "YUMMY ! Successfully updated your food", Toast.LENGTH_LONG).show();
 
