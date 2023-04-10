@@ -84,7 +84,6 @@ public class AddPage extends Fragment {
     Spinner cuisineSpinner;
     String cuisine;
     Bitmap bitmap;
-    TextView addPicDes;
     String image_url = null;
     LatLng latLng;
 
@@ -107,7 +106,6 @@ public class AddPage extends Fragment {
         upload = view.findViewById(R.id.upload);
         areaSpinner = view.findViewById(R.id.areaSpinner);
         cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
-        addPicDes = view.findViewById(R.id.addPicDes);
 
         //set up the autofill response
         String apiKey = BuildConfig.KEY;
@@ -222,7 +220,6 @@ public class AddPage extends Fragment {
                     rate.setRating(0);
                     foodMemo.setText("");
                     pictures.setImageDrawable(null);
-                    addPicDes.setText("");
                     areaSpinner.setSelection(0);
                     cuisineSpinner.setSelection(0);
                 }

@@ -55,12 +55,11 @@ public class EditPage extends Fragment {
 
     ArrayList<Entry> entries;
     EditText restaurantName, menuName, price, foodMemo;
-    TextView cancel;
+    TextView cancel, addPictures;
     RatingBar rate;
     ImageView pictures;
-    Button addPictures, update;
+    Button update;
     Spinner areaSpinner, cuisineSpinner;
-    TextView addPicDes;
     String area, cuisine;
     String image_url = null;
     Bitmap bitmap;
@@ -96,7 +95,6 @@ public class EditPage extends Fragment {
         update = view.findViewById(R.id.updateButton);
         areaSpinner = view.findViewById(R.id.areaSpinner);
         cuisineSpinner = view.findViewById(R.id.cuisineSpinner);
-        addPicDes = view.findViewById(R.id.addPicDes);
         cancel = view.findViewById(R.id.cancel);
 
         // show the inputs exist already
@@ -134,11 +132,9 @@ public class EditPage extends Fragment {
                 pictures.getLayoutParams().height = sizeInPixels;
 
                 startActivityForResult(intent, 1);
-                addPicDes.setText("");
             }
         });
 
-        // TODO doesn't work -> getting the index, although they are the same they returns false
         // get the index of the area to set the area in the spinner
         String[] areaList = getResources().getStringArray(R.array.areaSpinner);
         for (int i =0; i < areaList.length; i ++ ){
