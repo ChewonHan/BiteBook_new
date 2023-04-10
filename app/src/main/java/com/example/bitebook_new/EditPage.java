@@ -31,6 +31,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +48,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 public class EditPage extends Fragment {
@@ -66,13 +68,12 @@ public class EditPage extends Fragment {
     private Entry data;
     private int areaIdx;
     int cuisineIdx;
-    private String id;
+    List<Double> latlng;
 
 
-    public EditPage(Context content, Entry data, String id) {
+    public EditPage(Context content, Entry data) {
         this.content = content;
         this.data = data;
-        this.id =id;
     }
 
     @SuppressLint("MissingInflatedId")
@@ -137,25 +138,30 @@ public class EditPage extends Fragment {
             }
         });
 
+        // TODO doesn't work -> getting the index, although they are the same they returns false
         // get the index of the area to set the area in the spinner
         String[] areaList = getResources().getStringArray(R.array.areaSpinner);
+
+        System.out.println("area " + data.getArea());
         for (int i =0; i < areaList.length; i ++ ){
             if (areaList[i].equals(data.getArea())){
                  areaIdx = i;
                  break;
             }
         }
+        System.out.println(areaIdx);
 
         // get the index of the cuisine to set the cuisine in the spinner
         String[] cuisineList = getResources().getStringArray(R.array.cuisineSpinner);
+        System.out.println("cuisine " + data.getCuisine());
         for (int i =0; i < cuisineList.length; i ++ ){
             if (cuisineList[i].equals(data.getCuisine())){
                 cuisineIdx = i;
                 break;
             }
         }
+        System.out.println(cuisineIdx);
 
-        // set the previous inputs got with the index
         areaSpinner.setSelection(areaIdx);
         cuisineSpinner.setSelection(cuisineIdx);
 
@@ -193,6 +199,7 @@ public class EditPage extends Fragment {
                 float pri = Float.parseFloat(price.getText().toString());
                 float rat = rate.getRating();
                 String fooMemo = foodMemo.getText().toString();
+                String id = data.getId();
 
                 // check any of necessary inputs are empty/ missing
                 if (resName.isEmpty() ||
@@ -211,8 +218,7 @@ public class EditPage extends Fragment {
 
                     // change the data in Entry
                     Entry entry = new Entry(id, resName, menName, pri, area, rat, fooMemo, cuisine, image_url);
-
-                    FirebaseHelper.updateEntry(content, entry, bitmap, id);
+                    FirebaseHelper.updateEntry(content, entry, bitmap);
                     Toast.makeText(getActivity(), "YUMMY ! Successfully updated your food", Toast.LENGTH_LONG).show();
 
                     // go back to homePage

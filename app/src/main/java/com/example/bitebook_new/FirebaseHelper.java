@@ -3,22 +3,14 @@ package com.example.bitebook_new;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Random;
 
 public class FirebaseHelper {
@@ -67,13 +59,12 @@ public class FirebaseHelper {
         }
     }
 
-    public static void updateEntry(Context context, Entry newEntry, Bitmap bitmap, String id){
+    public static void updateEntry(Context context, Entry newEntry, Bitmap bitmap){
         String uid = getCurrentUser(context);
 
         if (uid != null) {
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
-            DatabaseReference myRef = database.getReference(uid + "/entries/" + id);
-
+            DatabaseReference myRef = database.getReference(uid + "/entries/" + newEntry.getId());
             myRef.setValue(newEntry);
         }
     }

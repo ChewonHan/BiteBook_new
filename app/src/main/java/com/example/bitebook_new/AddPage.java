@@ -269,6 +269,7 @@ public class AddPage extends Fragment {
                         @SuppressLint("SetTextI18n")
                         @Override
                         public void onSuccess(FetchPlaceResponse task) {
+                            restaurantName.setText(task.getPlace().getName());
                             responseView.setText(task.getPlace().getName() + "\n" + task.getPlace().getAddress());
                         }
                     }).addOnFailureListener(new OnFailureListener() {
