@@ -222,6 +222,9 @@ public class AddPage extends Fragment {
                     pictures.setImageDrawable(null);
                     areaSpinner.setSelection(0);
                     cuisineSpinner.setSelection(0);
+                    pictures.getLayoutParams().height = 0;
+                    addPictures.getLayoutParams().height = 150;
+                    pictures.requestLayout();
                 }
             }
         });
@@ -309,7 +312,6 @@ public class AddPage extends Fragment {
 
 //                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(same,500);
                 pictures.requestLayout();
-                addPictures.getLayoutParams().height = 0;
 
                 // Save the Bitmap to the MyObject instance
 //                Entry.setFoodImage(bitmap);
