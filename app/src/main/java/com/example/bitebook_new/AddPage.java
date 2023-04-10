@@ -33,6 +33,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
@@ -84,6 +85,7 @@ public class AddPage extends Fragment {
     Bitmap bitmap;
     TextView addPicDes;
     String image_url = null;
+    LatLng latLng;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -208,7 +210,7 @@ public class AddPage extends Fragment {
 
                     // save the user inputs as an object called Entry
 
-                    Entry entry = new Entry(resName, menName, pri, area, rat, fooMemo, cuisine, image_url);
+                    Entry entry = new Entry(resName, menName, pri, area, rat, fooMemo, cuisine, image_url, latLng);
                     FirebaseHelper.createEntry(getContext(), entry, bitmap);
 
                     // After uploading the food, show the message through the toast
@@ -269,7 +271,9 @@ public class AddPage extends Fragment {
                         @SuppressLint("SetTextI18n")
                         @Override
                         public void onSuccess(FetchPlaceResponse task) {
-                            responseView.setText(task.getPlace().getName() + "\n" + task.getPlace().getAddress());
+                            restaurantName.setText(task.getPlace().getName());
+//                            responseView.setText(task.getPlace().getName() + "\n" + task.getPlace().getAddress());
+                            latLng = task.getPlace().getLatLng();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

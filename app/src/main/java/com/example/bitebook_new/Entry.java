@@ -2,6 +2,8 @@ package com.example.bitebook_new;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -22,12 +24,15 @@ public class Entry {
     private int mYear;
     private String mMonth;
     private int mDay;
+    private double lat;
+    private double lng;
+    private LatLng latlng;
 
     public Entry() {
     }
 
 
-    public Entry(String resName, String menName, float price, String area, float rating, String review, String cuisine, String image) {
+    public Entry(String resName, String menName, float price, String area, float rating, String review, String cuisine, String image, LatLng latLng) {
         this.resName = resName;
         this.menName = menName;
         this.price = price;
@@ -37,9 +42,12 @@ public class Entry {
         this.cuisine = cuisine;
         this.image = image;
         this.date = setDate();
+        this.latlng = latLng;
+        this.lat = latLng.latitude;
+        this.lng = latLng.longitude;
     }
 
-    public Entry(String id, String resName, String menName, float price, String area, float rating, String review, String cuisine, String image) {
+    public Entry(String id, String resName, String menName, float price, String area, float rating, String review, String cuisine, String image, LatLng latLng) {
         this.id = id;
         this.resName = resName;
         this.menName = menName;
@@ -50,6 +58,17 @@ public class Entry {
         this.cuisine = cuisine;
         this.image = image;
         this.date = setDate();
+        this.latlng = latLng;
+        this.lat = latLng.latitude;
+        this.lng = latLng.longitude;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
     }
 
     private String setDate(){

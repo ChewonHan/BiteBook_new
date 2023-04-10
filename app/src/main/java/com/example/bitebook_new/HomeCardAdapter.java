@@ -218,7 +218,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             @Override
             public void onClick(View view) {
 
-                EditPage editPage = new EditPage( content, entry, data.get(position).getId());
+                EditPage editPage = new EditPage( content, entry);
                 FragmentManager fragmentManager = ((AppCompatActivity) content).getSupportFragmentManager();
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
