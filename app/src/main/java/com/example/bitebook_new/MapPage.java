@@ -10,11 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,8 +33,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class MapPage extends Fragment implements OnMapReadyCallback {
 
@@ -53,32 +58,26 @@ public class MapPage extends Fragment implements OnMapReadyCallback {
             MapsInitializer.initialize(getContext());
             mapView.getMapAsync(this);
         }
-
         return view;
     }
 
-
-//        @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_map);
-//        // Obtain the SupportFragment and get notified when the nap is ready to be used
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-////        mapFragment.getMapAsync( onMapReadyCallback.this);
-//    }
-
-
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        // get all the long, lat, name
 
+        // default
+        gMap = googleMap;
+        LatLng sutd = new LatLng(1.3413, 103.9638);
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(sutd));
+
+        // get all the long, lat, name
         String uid = FirebaseHelper.getCurrentUser(getContext());
         Context context = getContext();
 
         // Get a reference to the Firebase Realtime Database
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference myRef = database.getReference(uid + "/entries");
+
+        gMap.getUiSettings().setZoomControlsEnabled(true);
 
         // Read the data from Firebase and populate the RecyclerView
         myRef.addValueEventListener(new ValueEventListener() {
@@ -89,7 +88,8 @@ public class MapPage extends Fragment implements OnMapReadyCallback {
                     Entry entry = entrySnapshot.getValue(Entry.class);
 //                    entries.add(entry);
                     LatLng latlng = entry.getLatlng();
-                    gMap.addMarker(new MarkerOptions().position(latlng).title(entry.getResName()).snippet(entry.getReview()));
+                    gMap.addMarker(new MarkerOptions().position(latlng).title(entry.getResName()).snippet(entry.getMenName()));
+
                 }
 
             }
@@ -101,10 +101,7 @@ public class MapPage extends Fragment implements OnMapReadyCallback {
         });
 
 
-        gMap = googleMap;
 
-        LatLng sutd = new LatLng(1.3413, 103.9638);
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(sutd));
     }
 
 }

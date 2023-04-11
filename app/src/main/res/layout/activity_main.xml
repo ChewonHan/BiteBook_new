@@ -37,6 +37,7 @@
             android:layout_weight="10"
             android:text="BiteBook"
             android:textSize="26dp"
+            android:textStyle="bold"
             android:layout_marginVertical="12dp"
             android:textColor="@color/white"/>
 

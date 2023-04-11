@@ -71,17 +71,6 @@
             android:padding="10dp"
             android:textSize="16dp" />
 
-
-        <!--    <Spinner-->
-        <!--        android:id="@+id/cuisineSpinner"-->
-        <!--        android:layout_width="190dp"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_below="@+id/price"-->
-        <!--        android:layout_marginStart="218dp"-->
-        <!--        android:layout_marginTop="5dp"-->
-
-        <!--        />-->
-
         <RelativeLayout
             android:id="@+id/areaContainer"
             android:layout_width="match_parent"
@@ -113,26 +102,35 @@
                 android:layout_height="30dp" />
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cuisineContainer"
-            android:layout_marginTop="20dp"
-            android:hint="Rating:" />
+            android:id="@+id/rating"
+            android:layout_below="@+id/cuisineContainer">
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cuisineContainer"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="5dp"
-            tools:ignore="NotSibling" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:hint="Rating:" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2"
+                tools:ignore="NotSibling"
+                android:progressTint="@color/bacon"/>
+        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ratingBar"
+            android:layout_below="@id/rating"
             app:cardCornerRadius="8dp"
             android:id="@+id/imageCard"
             android:elevation="10dp">
