@@ -98,8 +98,7 @@
                 android:layout_below="@+id/line1"
                 android:layout_centerInParent="true"
                 android:scaleType="centerCrop"
-                android:layout_marginHorizontal="14dp"
-                android:src="@drawable/macs" />
+                android:layout_marginHorizontal="14dp" />
 
 <!--            <View-->
 <!--                android:id="@+id/line2"-->
