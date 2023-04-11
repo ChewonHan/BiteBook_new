@@ -84,10 +84,10 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         holder.line3.setVisibility(View.GONE);
         holder.description.setVisibility(View.GONE);
 
+
         // shows image depends on the input
         if (entry.getImage() == null){
             holder.image.setVisibility(View.GONE);
-//            holder.line2.setVisibility(View.GONE);
         }
         else{
             Picasso

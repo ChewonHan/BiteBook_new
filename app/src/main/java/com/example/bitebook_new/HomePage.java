@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +31,8 @@ import java.util.Collections;
 public class HomePage extends Fragment {
     RecyclerView homeRecycler;
     RecyclerView.Adapter adapter;
+    TextView noEntry;
+    ArrayList<Entry> entries = new ArrayList<>();
 
 
     public HomePage() {}
@@ -45,7 +53,8 @@ public class HomePage extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Entry> entries = new ArrayList<>();
+                entries.clear();
+
                 for (DataSnapshot entrySnapshot : dataSnapshot.getChildren()) {
                     Entry entry = entrySnapshot.getValue(Entry.class);
                     entries.add(entry);
@@ -59,6 +68,15 @@ public class HomePage extends Fragment {
                 homeRecycler.setLayoutManager(layoutManager);
                 adapter = new HomeCardAdapter(context, entries);
                 homeRecycler.setAdapter(adapter);
+
+                noEntry = view.findViewById(R.id.noEntry);
+
+                if (entries.size() != 0){
+                    noEntry.setVisibility(View.GONE);
+                }
+                else{
+                    noEntry.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -66,6 +84,9 @@ public class HomePage extends Fragment {
                 Log.w("Error", "loadPost:onCancelled", error.toException());
             }
         });
+
+
+
         return view;
     }
 }
