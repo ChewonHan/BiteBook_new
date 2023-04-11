@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
@@ -36,10 +35,10 @@ public class FirebaseHelper {
 
     public static void createEntry(Context context, Entry entry, Bitmap bitmap) {
 
-        String uid = getCurrentUser(context);
+        String uid = getCurrentUserUID(context);
 
         if (uid != null) {
-            FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            FirebaseDatabase database = DatabaseSingleton.getInstance().getDBInstance();;
             DatabaseReference myRef = database.getReference(uid + "/entries");
             DatabaseReference newRef = myRef.push();
             newRef.setValue(entry);
@@ -52,20 +51,20 @@ public class FirebaseHelper {
     }
 
     public static void deleteEntry(Context context, String id) {
-        String uid = getCurrentUser(context);
+        String uid = getCurrentUserUID(context);
 
         if (uid != null) {
-            FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            FirebaseDatabase database = DatabaseSingleton.getInstance().getDBInstance();
             DatabaseReference myRef = database.getReference(uid + "/entries/" + id);
             myRef.removeValue();
         }
     }
 
     public static void updateEntry(Context context, Entry newEntry, Bitmap bitmap){
-        String uid = getCurrentUser(context);
+        String uid = getCurrentUserUID(context);
 
         if (uid != null) {
-            FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            FirebaseDatabase database = DatabaseSingleton.getInstance().getDBInstance();;
             DatabaseReference myRef = database.getReference(uid + "/entries/" + newEntry.getId());
             myRef.setValue(newEntry);
         }
@@ -74,9 +73,9 @@ public class FirebaseHelper {
 
 
 
-    public static String getCurrentUser(Context context) {
+    public static String getCurrentUserUID(Context context) {
         String uid = null;
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = AuthSingleton.getInstance().getCurrentUser();
         GoogleSignInAccount gAccount = GoogleSignIn.getLastSignedInAccount(context);
 
         if (gAccount != null) {
@@ -88,13 +87,11 @@ public class FirebaseHelper {
 
                 // UID specific to the provider
                 uid = profile.getUid();
-                System.out.println(uid);
                 return uid;
             }
         } else {
             System.out.println("no user found");
         }
-//        System.out.println("this is the return" + uid);
         return uid;
     }
 

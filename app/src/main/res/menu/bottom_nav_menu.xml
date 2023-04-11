@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-
-    >
-    <item
-        android:id="@+id/add"
-        android:title="Add"
-        android:icon="@drawable/add_icon"/>
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
-        android:title="Home"
-        android:icon="@drawable/home_icon"/>
+        android:icon="@drawable/home_icon"
+        android:title="Home" />
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/add_icon"
+        android:title="Add" />
+
 
     <item
         android:id="@+id/decide"
-        android:title="Decide"
-        android:icon="@drawable/decide_icon"/>
+        android:icon="@drawable/decide_icon"
+        android:title="Decide" />
 
     <item
         android:id="@+id/map"
-        android:title="Map"
-        android:icon="@drawable/map_icon"/>
+        android:icon="@drawable/map_icon"
+        android:title="Map" />
 
 </menu>

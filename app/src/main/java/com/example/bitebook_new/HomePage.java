@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,9 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class HomePage extends Fragment {
@@ -42,13 +42,12 @@ public class HomePage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-        String uid = FirebaseHelper.getCurrentUser(getContext());
+        String uid = FirebaseHelper.getCurrentUserUID(getContext());
         Context context = container.getContext();
         homeRecycler = (RecyclerView) view.findViewById(R.id.homeRecycler);
 
         // Get a reference to the Firebase Realtime Database
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference myRef = database.getReference(uid + "/entries");
+        DatabaseReference myRef = DatabaseSingleton.getInstance().getDBInstance().getReference(uid + "/entries");
 
         // Read the data from Firebase and populate the RecyclerView
         myRef.addValueEventListener(new ValueEventListener() {
