@@ -14,8 +14,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,10 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.Random;
 
 public class DecidePage extends Fragment {
@@ -106,9 +101,8 @@ public class DecidePage extends Fragment {
 
 
         // first we want to get the data from firebase
-        String uid = FirebaseHelper.getCurrentUser(getContext());
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://bitebook-380210-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference myRef = database.getReference(uid + "/entries");
+        String uid = FirebaseHelper.getCurrentUserUID(getContext());
+        DatabaseReference myRef = DatabaseSingleton.getInstance().getDBInstance().getReference(uid + "/entries");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
