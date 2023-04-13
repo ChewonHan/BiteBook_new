@@ -100,15 +100,6 @@
                 android:scaleType="centerCrop"
                 android:layout_marginHorizontal="14dp" />
 
-<!--            <View-->
-<!--                android:id="@+id/line2"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1dp"-->
-<!--                android:layout_below="@+id/foodPic"-->
-<!--                android:layout_marginHorizontal="10dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:background="@color/bacon" />-->
-
             <LinearLayout
                 android:id="@+id/belowElements"
                 android:layout_width="match_parent"

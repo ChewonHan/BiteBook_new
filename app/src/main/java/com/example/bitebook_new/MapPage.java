@@ -77,9 +77,7 @@ public class MapPage extends Fragment implements OnMapReadyCallback {
 //                    entries.add(entry);
                     LatLng latlng = entry.getLatlng();
                     gMap.addMarker(new MarkerOptions().position(latlng).title(entry.getResName()).snippet(entry.getMenName()));
-
                 }
-
             }
 
             @Override
@@ -87,9 +85,5 @@ public class MapPage extends Fragment implements OnMapReadyCallback {
                 Log.w("Error", "loadPost:onCancelled", error.toException());
             }
         });
-
-
-
     }
-
 }
