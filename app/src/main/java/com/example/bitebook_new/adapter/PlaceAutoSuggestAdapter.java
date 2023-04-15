@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.PlaceTypes;
 import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
@@ -23,6 +24,7 @@ import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRe
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -143,7 +145,8 @@ public class PlaceAutoSuggestAdapter extends ArrayAdapter<AutocompletePrediction
                         .setLocationBias(bounds)
 //                        .setLocationRestriction(bounds)
                         .setSessionToken(AutocompleteSessionToken.newInstance())
-                        .setTypeFilter(TypeFilter.ESTABLISHMENT);
+                        .setTypesFilter(Arrays.asList(PlaceTypes.FOOD,PlaceTypes.MEAL_TAKEAWAY,
+                                PlaceTypes.MEAL_DELIVERY,PlaceTypes.SHOPPING_MALL));
 
         Task<FindAutocompletePredictionsResponse> results =
                 placesClient.findAutocompletePredictions(requestBuilder.build());
